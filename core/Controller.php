@@ -11,12 +11,18 @@ abstract class Controller{
     protected $controller;
     
     protected $path_view;
+    
+    protected $auth = false;
 
 
     public function __construct(){
         
         $this->view = new View();
         $this->controller = SD::$Request->getController();
+        if($this->auth){
+            Login::isLogin();
+        }
+        
     }
 
     abstract public function index();

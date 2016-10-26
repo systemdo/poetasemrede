@@ -10,7 +10,8 @@ $config = array(
 	'password' => 'poeta',
         'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock'
     ),
-    'environment' => 1, 
+    'environment' => 1,
+    //'urlLogin' => array('frontend' => array('layout'))
     
 );
 
