@@ -1,0 +1,81 @@
+body
+{
+	background-color: #CCCCB2;
+}
+#logo
+{
+	background: url(../images/logo_grafika.png) no-repeat;
+	width: 480px;
+    height: 130px;
+	margin-left: 495px;
+	margin-top: 66px;
+}
+
+#logoDashboard
+{
+	background: url(../images/logo_grafika.png) no-repeat;
+	width: 306px;
+    height: 130px;
+}
+
+.separador
+{
+	border-bottom: 1px solid #191975;
+}
+
+.menu
+{
+	font-family: Helvetica;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+.menu .boton
+{
+	width: 134px;
+	height: 33px;
+	background-color: #9E9E85;
+	padding-top: 10px;
+	padding-left: 12px;
+}
+
+.ventanaLogin
+{
+	border: 1px solid black;
+	width: 350px;
+	height: 170px;
+	margin-left: 478px;
+	margin-top: 20px;
+	font-family: Arial;
+	font-size: 13px;
+	background-color: #9E9E85;
+}
+
+.ventanaLogin .login
+{
+	font-weight: bold;
+	margin-top: 14px;
+}
+
+.ventanaLogin div
+{
+	margin-left: 20px;
+	margin-top: 7px;
+}
+
+.ventanaLogin .divUsuario
+{
+	margin-left:24px;
+}
+
+.ventanaLogin .aceptar
+{
+	margin: 20px auto;
+	width: 73px;
+}
+
+.ventanaLogin .buttonAceptar
+{
+	display: block;
+}

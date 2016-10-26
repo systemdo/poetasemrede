@@ -1,0 +1,42 @@
+@font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(icon/icon/MaterialIcons-Regular.eot); /* For IE6-8 */
+        src: local('Material Icons'),
+             local('MaterialIcons-Regular'),
+             url(icon/MaterialIcons-Regular.woff2) format('woff2'),
+             url(icon/MaterialIcons-Regular.woff) format('woff'),
+             url(icon/MaterialIcons-Regular.ttf) format('truetype');
+      }
+body{
+		padding-bottom: 70px;
+		background-color: #fff;
+		/*color: #e9edf1;*/
+	 	color: #333;
+	 	font-size: 14px;
+	}
+
+.header{
+	margin: 0;
+
+}
+
+
+.material-icons{
+    float: left;
+}
+
+.btn-area-reservada{
+	margin-top: 8px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #e7e7e7;
+    text-align: center;
+        padding-top: 10px;
+
+}
