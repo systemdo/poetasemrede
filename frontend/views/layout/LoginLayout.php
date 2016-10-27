@@ -169,7 +169,7 @@
                             <form id="cadastrar_usuario">
                                 <div class="col-md-6 form-cadastro"> 
                                     <label for="exampleInputEmail1">Nome </label>
-                                    <input type="text" class="form-control input-lg" maxlength="50" name="nome" id="nome" required placeholder="Nome">
+                                    <input type="text" class="form-control input-lg" maxlength="50" name="nome" id="nome" required="required" placeholder="Nome">
                                 </div>
                                 <div class="col-md-6 form-cadastro">
                                     <label for="exampleInputEmail1">Pseudonimo</label>
@@ -177,22 +177,22 @@
                                 </div>
                                 <div class="col-md-7 form-cadastro">  	 
                                     <label for="exampleInputEmail1">Sobrenome</label>
-                                    <input type="text" class="form-control input-lg" maxlength="300" name="sobrenome" required id="" placeholder="Sobrenome">
+                                    <input type="text" class="form-control input-lg" maxlength="300" name="sobrenome" required id="sobrenome" placeholder="Sobrenome">
                                 </div>
                                 <div class="col-md-5 form-cadastro">      
                                     <!-- <label for="exampleInputEmail1">Principio de Sua existência</label> -->
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="exampleInputEmail1">Dia</label>    
-                                            <select required class="form-control input-lg"><option>31</option></select>
+                                            <select required name="nascimento-dia" id="" class="form-control input-lg"><option>31</option></select>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="exampleInputEmail1">Mês</label>    
-                                            <select class="form-control input-lg"><option>02</option></select>
+                                            <select name="nascimento-mes" class="form-control input-lg"><option>02</option></select>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="exampleInputEmail1">Ano</label>    
-                                            <select class="form-control input-lg"><option>1898</option></select>
+                                            <select name="nascimento-ano" class="form-control input-lg"><option>1986</option></select>
                                         </div>
                                     </div>
                                 </div>                   				  
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="col-md-6 form-cadastro">
                                     <label for="exampleInputEmail1">Confirme Email</label>
-                                    <input type="email" required="email" class="form-control input-lg" name="email" id="email" placeholder="Tenha certeza que seu email Email está certo">
+                                    <input type="email" required="email" class="form-control input-lg" name="confirm_email" id="confirm_email" placeholder="Tenha certeza que seu email Email está certo">
                                 </div>
                                 <div class="col-md-6 form-cadastro">
                                     <label for="exampleInputPassword1">Password</label>
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="col-md-6 form-cadastro">
                                     <label for="exampleInputPassword1">Não esqueça isso!</label>
-                                    <input type="password" required class="form-control input-lg" name="confirmar_password" id="confirmar_password" placeholder="Repitindo a Senha">
+                                    <input type="password" required class="form-control input-lg" name="confirm_senha" id="confirm_senha" placeholder="Repitindo a Senha">
                                 </div>
                                 <!--<div class="col-md-6 form-cadastro">
                                     <label for="exampleInputFile">Coloque uma imagem que mais pareça com você</label>
@@ -242,15 +242,17 @@
                 });
                 
                 $('#btn-cadastrar-usuario').click(function () {
-                    //alert('hello');
+                   
                     $.post( 'usuarios/cadastrarUsuarios/cadastrar-usuario', 
                             $("#cadastrar_usuario").serialize(), 
                             function(dados){})
                             .done(function(dados) {
+                                console.debug(dados);
                           if(dados.resposta){
                                 alert('Você está na Rede');
+                                location.reload();    
                           }else{
-                              alert('Ocorreu um erro em cadastrar tente de novo');
+                              alert(dados.mensagem);
                           }
                     });
                     return false;   

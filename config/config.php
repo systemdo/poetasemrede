@@ -6,8 +6,10 @@ $config = array(
     'database' => array(
         'host' => 'localhost',
         'name' => 'poeta_social',
-	'user' => 'poeta',
-	'password' => 'poeta',
+	'user' => 'root',
+	//'user' => 'poeta',
+	//'password' => 'poeta',
+	'password' => '',
         'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock'
     ),
     'environment' => 1,

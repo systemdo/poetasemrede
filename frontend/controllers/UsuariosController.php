@@ -28,35 +28,44 @@ class UsuariosController extends Controller {
             $usuario = new UsuariosModel();
             
             $usuarioDAO = new UsuariosDAO();
-            $erro = false;
-            var_dump($_POST);
+            $resposta = true;
+            $mensagem ="";
+            
+            //var_dump($_POST);
             $nome = $validate->isEmpty($_POST['nome']);
             if($nome){
                 $usuario->setNome($nome);
+            }else{
+                $resposta = false;
+                $mensagem = "O nome esá vazio";
             }
             
             $sobrenome= $validate->isEmpty($_POST['sobrenome']);
             if($sobrenome){
                 $usuario->setSobrenome($sobrenome);
             }
+            else{
+                $resposta = false;
+                $mensagem = "O Sobrenome está vazio";
+            }
             
             $email = $validate->isEmail($_POST['email']);
             if($email == $_POST['confirm_email']){
                 $usuario->setEmail($email);
+            }else{
+                $resposta = false;
+                $mensagem = "Os emails estão diferentes";
             }
             
-            $nascimento = $validate->isEmpty($_POST['nascimento']);
+            $nascimento = $validate->isEmpty($_POST['nascimento-dia']);
             if($nascimento){
+                $nascimento =  $_POST['nascimento-ano']."-".$_POST['nascimento-mes']."-".$_POST['nascimento-dia'];
                 $usuario->setNascimento($nascimento);
             }
             
-            $descricao = $validate->isEmpty($_POST['nascimento']);
-            if($descricao){
-                $usuario->setDescricao($descricao);
-            }
-            
-            $senha = $validate->isEmpty($_POST['password']);
-            if($senha == $_POST['confirm_password']){
+         
+            $senha = $validate->isEmpty($_POST['senha']);
+            if($senha == $_POST['confirm_senha']){
                 $usuario->setSenha(md5($senha));
             }else{
                 $resposta = false;
@@ -66,22 +75,28 @@ class UsuariosController extends Controller {
             $pseudonimo = $validate->isEmpty($_POST['pseudonimo']);
             if($pseudonimo){
                 $usuario->setPseudonimo($pseudonimo);
+            }else{
+                $resposta = false;
+                $mensagem = "O Pseudonimo está vazio";
             }
             
             $usuario->setStatus(2);
-            
-            $usuarioDAO->inserir($usuario);
+            if($resposta){
+                if(!$usuarioDAO->inserir($usuario)){
+                     $resposta = false;
+                }
+            }
 
             /*$imagem = $validate->isEmpty($_POST['imagem']);
             if($imagem){
                 $usuario->setNome($imagem);
             }*/
-                            $resposta = false;
+       
 
         }else{
             $resposta = false;
         }
-        $dados = array('resposta' => $resposta);
+        $dados = array('resposta' => $resposta, 'mensagem' => utf8_encode($mensagem));
         $this->getJson($dados);
     }
 

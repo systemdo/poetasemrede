@@ -7,7 +7,7 @@ class LoginController extends Controller {
     }
 
     function index(){
-        $this->view->setLayout("loginLayout");
+        $this->view->setLayout("LoginLayout");
         $this->view();
     }
 		
