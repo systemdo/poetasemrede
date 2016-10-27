@@ -5,8 +5,7 @@ Class Model {
     protected $db;
 
     function __construct() {
-        $db = SD::$DB;
-        $this->db = $db::connect();
+        $this->db = DB::connect();
     }
 
     protected function consultOne($query, $error = false) {

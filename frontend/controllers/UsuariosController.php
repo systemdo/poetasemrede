@@ -6,45 +6,50 @@
  * and open the template in the editor.
  */
 
-class UsuarioController extends Controller {
+class UsuariosController extends Controller {
 
     function __construct() {
+        //$this->auth = true;
         parent::__construct();
+        
     }
 
     function index() {
         $this->view();
     }
 
-    function cadastrarUsuarios() {
-        if (!empty($_POST['cadastrar_usuario'])) {
+    function cadastrarUsuarios($acao) {
+        if (!empty($acao) and $acao == 'cadastrar-usuario') {
             
             $this->loadModels('UsuariosDAO', 'DAO');
             $this->loadModels("UsuariosModel");
             
             $validate = new Validate();
-            $usuario = new Usuario();
+            $usuario = new UsuariosModel();
             
             $usuarioDAO = new UsuariosDAO();
             $erro = false;
+            var_dump($_POST);
             $nome = $validate->isEmpty($_POST['nome']);
             if($nome){
                 $usuario->setNome($nome);
-            }else{
-                $erro = "nome";
             }
+            
             $sobrenome= $validate->isEmpty($_POST['sobrenome']);
             if($sobrenome){
                 $usuario->setSobrenome($sobrenome);
             }
+            
             $email = $validate->isEmail($_POST['email']);
             if($email == $_POST['confirm_email']){
                 $usuario->setEmail($email);
             }
+            
             $nascimento = $validate->isEmpty($_POST['nascimento']);
             if($nascimento){
                 $usuario->setNascimento($nascimento);
             }
+            
             $descricao = $validate->isEmpty($_POST['nascimento']);
             if($descricao){
                 $usuario->setDescricao($descricao);
@@ -54,7 +59,8 @@ class UsuarioController extends Controller {
             if($senha == $_POST['confirm_password']){
                 $usuario->setSenha(md5($senha));
             }else{
-                
+                $resposta = false;
+                $mensagem = "As senhas estão diferentes";
             }
             
             $pseudonimo = $validate->isEmpty($_POST['pseudonimo']);
@@ -70,15 +76,16 @@ class UsuarioController extends Controller {
             if($imagem){
                 $usuario->setNome($imagem);
             }*/
+                            $resposta = false;
+
         }else{
-            $retorno = false;
+            $resposta = false;
         }
+        $dados = array('resposta' => $resposta);
         $this->getJson($dados);
     }
 
-    function conseguirBairro($id) {
-        
-    }
+    
 
 }
 

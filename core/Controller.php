@@ -20,7 +20,9 @@ abstract class Controller{
         $this->view = new View();
         $this->controller = SD::$Request->getController();
         if($this->auth){
-            Login::isLogin();
+            if(!Login::isLogin()){
+                Login::loginRedirect();
+            };
         }
         
     }

@@ -31,7 +31,11 @@ protected $css_files;
         if($this->layout){
             require_once SD::getPathView().'/layout/'.$this->layout.'.php';
         }
-    } 
+    }
+    
+    public function setLayout($layout){
+        return $this->layout = $layout;
+    }
     
     protected function getController(){
         return $this->controller;

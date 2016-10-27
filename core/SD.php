@@ -233,4 +233,14 @@ class SD {
     static function setEnvironment(){
         $backend = self::$Config->hasBackendUrl();
     }
+    
+    static function redirect($place){
+              
+        if(self::$Config->hasBackendUrl()){
+            $url = self::getAppUrlForPlace().'/'.$place;
+        }else{
+             $url = self::getAppUrl().'/'.$place;
+        }
+        header("Location:$url");
+    }
 }
