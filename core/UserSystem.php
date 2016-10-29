@@ -8,19 +8,21 @@ class UserSystem{
     protected $email;
     
     public function __construct($email,$password) {
-        $query ="SELECT id, email, password, nome
+        $query ="SELECT id, email, senha, nome
                 FROM Usuarios
                 WHERE email = '$email'
-                AND password = '$password'"; 
-        
+                AND senha = '$password'"; 
+        //die($query);
         $con = DB::getStatement($query);
         $con->execute();
         $result = $con->fetch(PDO::FETCH_OBJ);
-        if($result){			
+        if($result){	
+
             if($result->email == $email){
-                if($result->password == $pass){
+
+                if($result->senha == $password){
                     $this->email = $result->email;
-                    $this->$name = $result->nome;
+                    $this->name = $result->nome;
                     $this->id = $result->id;
 
                 }
@@ -30,6 +32,10 @@ class UserSystem{
         }
     
     
+    }
+    
+    function getId(){
+        return $this->id;
     }
 }
 

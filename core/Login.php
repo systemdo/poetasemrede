@@ -3,16 +3,18 @@
 Class Login {
 
     function __construct() {
-        ini_set("session.use_cookies", 1);
-        ini_set("session.use_only_cookies", 1);
-        ini_set("session.cookie_lifetime", 900);
+        //ini_set("session.use_cookies", 1);
+        //ini_set("session.use_only_cookies", 1);
+        //ini_set("session.cookie_lifetime", 900);
 
         session_start();
     }
 
     static function login($email = false, $password = false) {
         if ($email && $password) {
-            if ($Login::checkUser($email, $password)) {
+            $user = Login::checkUser($email, $password);
+            if ($user->getId()) {
+                self::beginSession($user);
                 return true;
             }
         }
@@ -20,23 +22,25 @@ Class Login {
     }
 
 //funcion que chequea  si hay usuario el la base de datos
-    static function checkUser($email, $pass) {
-
-        $user = new UserSystem($email, $pass);
-
+    static private function checkUser($email, $pass) {
+        
+        $user = new UserSystem($email, md5($pass));
         return $user;
     }
 
 //inicia a session
-    static function beginSession(UserSystem $user) {
+    static private function beginSession(UserSystem $user) {
         $current_time = date("Y-m-d H:i:s");
+        
         if (!isset($_SESSION['login_user'])) {
+            
             $_SESSION['login_user']['user'] = serialize($user);
             $_SESSION['login_user']['date'] = $current_time;
         }
     }
 
     static function getUserSession() {
+          
         if (isset($_SESSION['login_user'])) {
             return unserialize($_SESSION['login_user']['user']);
         }

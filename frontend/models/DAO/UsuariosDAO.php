@@ -24,6 +24,7 @@ Class UsuariosDAO extends Model{
                          values('".$usuario->getNome() ."','".$usuario->getSobrenome()."','".$usuario->getEmail()."','".$usuario->getNascimento()."','".$usuario->getSenha()."','". $usuario->getStatus() ."','".$usuario->getPseudonimo()."')
                  ";
              $result = $db->prepare($sql);
+             //die($sql);
              //echo $registro = $result->execute();
              //die($sql);
              /*$result->bindValue(":nome",$usuario->getNome() , PDO::PARAM_STR);

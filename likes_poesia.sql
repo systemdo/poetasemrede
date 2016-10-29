@@ -1,3 +1,7 @@
+ALTER TABLE `poesia` CHANGE `dataCriacao` `dataCriacao` DATETIME NOT NULL;
+ALTER TABLE poesia RENAME poesias;
+ALTER TABLE relacionamento RENAME relacionamentos;
+
 -- phpMyAdmin SQL Dump
 -- version 4.5.1
 -- http://www.phpmyadmin.net

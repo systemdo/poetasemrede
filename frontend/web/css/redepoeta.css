@@ -29,12 +29,13 @@ footer {
 	position: fixed;
 
 }
-.visao-postagem{
+.grid-content{
 	margin-left: 265px;
 	display:block;
 	float:left;
 	width:80%;
 }
+
 .panel-poesia{
 	width:45%;
 	margin-left:20px;

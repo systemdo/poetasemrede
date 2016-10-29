@@ -65,11 +65,26 @@
 </nav>
     </nav>
 
-    <!-- Page Content -->
     <div class="container-fluid">
-           <?php echo $content?>
-    </div>
-        <!-- /.row -->
+        <div class="row conteudo-principal">
+            <div class="col-md-2 menu-pessoal">
+                <ul class="nav nav-pills nav-stacked">
+                  <li role="presentation" class="active"><a href="#">Início</a></li>
+                  <li role="presentation"><a href="#">Profile</a></li>
+                  <li role="presentation"><a href="<?php echo SD::getAppUrl().'/poesias'?>">Poesias</a></li>
+                  <li role="presentation"><a href="#">Amigos</a></li>
+                  <!--<li role="presentation"><a href="#">Grupos</a></li>-->
+                </ul>
+            </div>
+            
+            <div class="grid-content">
+                <div class="row">
+                <?php echo $content?>
+                </div>
+            </div>    
+    </div><!--row-->
+    </div>    
+        <!-- /.container -->
 
         <hr>
 
@@ -89,13 +104,9 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo $this->getPathJS()?>/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-            $('.ver-poesia-completa').click(function(){
-                $('#modal-poesia-completa').modal('show');
-            });
-		});
-	</script>
+    
+    <?php $this->getJs()?>
+    
 
 
 </body>

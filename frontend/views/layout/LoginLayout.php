@@ -43,21 +43,21 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-right">
+                    <form name="form_login" method="post" action="login/login" class="navbar-form navbar-right">
                         <div class="form-group">
                             <!--<label class="sr-only" for="exampleInputEmail3">Email address</label>-->
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Email">
+                            <input type="email" class="form-control" required="email" name="loginEmail" id="loginEmail" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <!--<label class="sr-only" for="exampleInputPassword3">Password</label>-->
-                            <input type="password" class="form-control" id="loginPassord" placeholder="Password">
+                            <input type="password" class="form-control" required name="loginPassword" id="loginPassword" placeholder="Senha">
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Nunca te esquecerei meu amor!
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-default btn-cadastro">Venha</button>
+                        <button type="submit" class="btn btn-default btn-login">Venha</button>
                     </form>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -166,7 +166,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <form id="cadastrar_usuario">
+                            <form name="cadastra_usuario" id="cadastrar_usuario">
                                 <div class="col-md-6 form-cadastro"> 
                                     <label for="exampleInputEmail1">Nome </label>
                                     <input type="text" class="form-control input-lg" maxlength="50" name="nome" id="nome" required="required" placeholder="Nome">
@@ -184,7 +184,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="exampleInputEmail1">Dia</label>    
-                                            <select required name="nascimento-dia" id="" class="form-control input-lg"><option>31</option></select>
+                                            <select required name="nascimento-dia" id="" class="form-control input-lg"><option>21</option></select>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="exampleInputEmail1">Mês</label>    
@@ -220,7 +220,7 @@
                         </div>    
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-cadastrar-usuario" class="btn btn-primary">Juntar-se!</button>
+                        <button type="submit" id="btn-cadastrar-usuario" class="btn btn-primary">Juntar-se!</button>
                     </div>
                     </form>
 
@@ -229,8 +229,8 @@
         </div>
 
         <!-- jQuery -->
-        <!--<script src="<?php echo $this->getPathJs() ?>/jquery.js"></script>-->
-        <script src="frontend/web/js/jquery.js"></script>
+        <script src="<?php echo $this->getPathJs() ?>/jquery.js"></script>
+        <!--<script src="frontend/web/js/jquery.js"></script>-->
 
 
         <!-- Bootstrap Core JavaScript -->
@@ -241,8 +241,10 @@
                     $('#modal-cadastro').modal('show');
                 });
                 
-                $('#btn-cadastrar-usuario').click(function () {
-                   
+                //$('#btn-cadastrar-usuario').click(function (e) {
+                    $('#cadastrar_usuario').submit(function (e) {
+                    
+                        e.preventDefault();
                     $.post( 'usuarios/cadastrarUsuarios/cadastrar-usuario', 
                             $("#cadastrar_usuario").serialize(), 
                             function(dados){})

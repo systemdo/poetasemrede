@@ -11,6 +11,9 @@ protected $controller;
 
 protected $css_files;
 
+protected $js_files;
+
+protected $data;
     function __construct(){
         $this->controller = SD::$Request->getController();;
         $this->setPathView();
@@ -20,7 +23,26 @@ protected $css_files;
     public function view($view = 'index', $data = array()){
         $this->view = $view;
         $this->setPathView();
+        
+        if(is_array($data)){
+            if(!empty($data)){
+                foreach($data as $name => $object){
+                    $$name = $object;
+                    $this->data [$name] = $$name; 
+
+                }
+            }
+        }
+        
         $content = $this->getRenderedHtml();
+        if($this->layout){
+            require_once SD::getPathView().'/layout/'.$this->layout.'.php';
+        }
+    }
+    
+    public function viewAjax($view = 'index', $data = array()){
+        $this->view = $view;
+        $this->setPathView();
         if(is_array($data)){
             if(!empty($data)){
                 foreach($data as $name => $object){
@@ -28,9 +50,8 @@ protected $css_files;
                 }
             }
         }
-        if($this->layout){
-            require_once SD::getPathView().'/layout/'.$this->layout.'.php';
-        }
+        require_once SD::getPathView().'/'.$view.'.php';
+        
     }
     
     public function setLayout($layout){
@@ -43,6 +64,16 @@ protected $css_files;
     
     private function getRenderedHtml(){
         ob_start();
+            
+            if(is_array( $this->data)){
+                if(!empty( $this->data)){
+                    foreach( $this->data as $name => $object){
+                        $$name = $object;
+                        $this->data [$name] = $$name; 
+
+                    }
+                }
+            }
             include($this->getPathView());
             $html = ob_get_contents();
         ob_end_clean();
@@ -69,17 +100,19 @@ protected $css_files;
         if(is_array($files)){
             $this->css_files = $files;
         }else{
-            die("The paramets for getCss must be array");
+            die("The paramets for setCss must be array");
         }    
     } 
     protected function getCss(){
         $css = '';
-        if(is_array($this->css_files)){
-            foreach($this->css_files as $file){
-                $css .='<link rel="stylesheet" type="text/css" ';
-                $css .= 'href="'.$this->getPathCss().'/'.$file.'">';
+       if(!empty($this->css_files)){
+            if(is_array($this->css_files)){
+                foreach($this->css_files as $file){
+                    $css .='<link rel="stylesheet" type="text/css" ';
+                    $css .= 'href="'.$this->getPathCss().'/'.$file.'">';
+                }
             }
-        }
+       }
         echo $css;    
     }
     
@@ -88,22 +121,24 @@ protected $css_files;
     }
     public function setJs($files){
         if(is_array($files)){
-            $this->css_files = $files;
+            $this->js_files = $files;
         }else{
-            die("The paramets for getCss must be array");
+            die("The paramets for setJs must be array");
         }    
     }
     
     protected function getJs(){
-        $css = '';
-        if(is_array($this->js_files)){
-            foreach($this->js_files as $file){
-                $css =' <script type="text/javascript" ';
-                $css .= 'href="'.$this->getPathJs().'/'.$file.'"></script>';
-            }    
+        $js = '';
+        if(!empty($this->js_files)){
+            if(is_array($this->js_files)){
+                foreach($this->js_files as $file){
+                    $js .=' <script type="text/javascript" ';
+                    $js .= 'src="'.$this->getPathJs().'/'.$file.'"></script>';
+                }    
 
-        }
-        echo $css;    
+            }
+        }    
+        echo $js;    
     }
     
     protected function getPathJs(){

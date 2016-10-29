@@ -8,16 +8,17 @@ Class Model {
         $this->db = DB::connect();
     }
 
-    protected function consultOne($query, $error = false) {
+    protected function consultOne($query) {
         $consult = $this->db->prepare($query);
         $consult->execute();
         $result = $consult->fetch(PDO::FETCH_OBJ);
 
         if ($result) {
             return $result;
-        }else{
-            throw new Exception("Dados Não Encontrado");
-        } 
+        }
+//        else{
+//            throw new Exception("Dados Não Encontrado");
+//        } 
         return false;
     }
 
@@ -28,9 +29,10 @@ Class Model {
 
         if ($result) {
             return $result;
-        }else{
-            throw new Exception("Dados Não Encontrado");
-        }       
+        }
+        //else{
+//            throw new Exception("Dados Não Encontrado");
+//        }       
         return false;
     }
 

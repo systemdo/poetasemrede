@@ -241,6 +241,7 @@ class SD {
         }else{
              $url = self::getAppUrl().'/'.$place;
         }
+        //var_dump($url);
         header("Location:$url");
     }
 }
