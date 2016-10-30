@@ -1,6 +1,19 @@
-ALTER TABLE `poesia` CHANGE `dataCriacao` `dataCriacao` DATETIME NOT NULL;
+/*ALTER TABLE `poesia` CHANGE `dataCriacao` `dataCriacao` DATETIME NOT NULL;
 ALTER TABLE poesia RENAME poesias;
 ALTER TABLE relacionamento RENAME relacionamentos;
+ALTER TABLE `relacionamentos` ADD `idConvidado` INT NOT NULL AFTER `IdSolicitante`;
+ALTER TABLE `relacionamentos` CHANGE `IdSolicitante` `IdConvidador` INT(11) NOT NULL;
+ALTER TABLE `relacionamentos` ADD INDEX(`IdConvidador`);
+ALTER TABLE `relacionamentos` ADD INDEX(`idConvidado`);
+ALTER TABLE `relacionamentos` ADD FOREIGN KEY (`IdConvidador`) REFERENCES `poeta_social`.`usuarios`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `relacionamentos` ADD FOREIGN KEY (`idConvidado`) REFERENCES `poeta_social`.`usuarios`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `relacionamentos` ADD FOREIGN KEY (`status`) REFERENCES `poeta_social`.`status`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+*/
+
+
+
+
+
 
 -- phpMyAdmin SQL Dump
 -- version 4.5.1

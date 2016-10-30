@@ -39,7 +39,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Poetas</a>
+      <a class="navbar-brand" href="#">Poetas-Continue a Nadar</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,7 +72,7 @@
                   <li role="presentation" class="active"><a href="#">Início</a></li>
                   <li role="presentation"><a href="#">Profile</a></li>
                   <li role="presentation"><a href="<?php echo SD::getAppUrl().'/poesias'?>">Poesias</a></li>
-                  <li role="presentation"><a href="#">Amigos</a></li>
+                  <li role="presentation"><a href="<?php echo SD::getAppUrl().'/amigos'?>">Amigos</a></li>
                   <!--<li role="presentation"><a href="#">Grupos</a></li>-->
                 </ul>
             </div>
@@ -105,7 +105,14 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo $this->getPathJS()?>/bootstrap.min.js"></script>
     
+    <script src="<?php echo $this->getPathJS()?>/likes/likes.js"></script>
+    
     <?php $this->getJs()?>
+    
+    <script type="text/javascript">
+        likes.eventLike();
+        likes.eventTakeLike();
+    </script>
     
 
 

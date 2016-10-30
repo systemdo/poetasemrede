@@ -55,7 +55,7 @@ class SD {
         self::$app_url = APP_URL;
         self::loadCoreClass();
         self::$Config = new Config();
-        //GeneratorModels::loadGenerator();
+        GeneratorModels::loadGenerator();
         self::$Request = new Request();
         
         

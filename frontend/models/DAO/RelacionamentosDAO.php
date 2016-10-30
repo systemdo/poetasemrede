@@ -7,34 +7,77 @@ Class RelacionamentosDAO extends Model {
         return $this->consultAll($query);
     }
 
-    function obterRelacionamentosPorUsuario($idUsuario) {
-        $query = "SELECT * FROM RELACIONAMENTOS WHERE idUsuario=$idUsuario Order by dataCriacao DESC";
+    function obterAmigosPorUsuarioPorIndex($idUsuario,$nome) {
+        $query = "SELECT * FROM USUARIOS u "
+                . " JOIN RELACIONAMENTOS r "
+                . " on r.idConvidador=u.id "
+                . " OR r.idConvidado = u.id "
+                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario"
+                . " AND nome like '%" . $nome . "%' OR "
+                . " pseudonimo = '%".$nome."%' "
+                . "r.status = StatusModel::STATUS_CONVITE_ACEITO Order by nome ASC";
+        return $this->consultAll($query);
+    }
+    function procurarAmigosPorIndex($nome) {
+         $query = "SELECT * FROM USUARIOS  "
+                . " WHERE nome like '%" . $nome . "%' OR "
+                . " pseudonimo = '%".$nome."%' Order by nome ASC";
+      // die($query);
+        return $this->consultAll($query);
+    }
+
+    //saber quais os amigos de um usuário
+    function obterAmigosPorUsuario($idUsuario) {
+        $query = "SELECT * FROM RELACIONAMENTOS r "
+                . " JOIN USUARIOS u on r.idUsuarioPrimeiro=u.idUsuario AND r.idUsuarioSegundo = u.idUsuario"
+                . " WHERE idUsuarioPrimeiro = $idUsuario AND "
+                . " idUsuarioSegundo = $idUsuario "
+                . " and status <> StatusModel::STATUS_CONVITE_ENVIADO Order by nome ASC";
         return $this->consultAll($query);
     }
     
-    function obterPoesia($id) {
+    function obterAmigosComConvitePendente($idUsuario) {
+        $query = "SELECT * FROM RELACIONAMENTOS r "
+                . " JOIN USUARIOS u on r.idUsuarioPrimeiro=u.idUsuario AND r.idUsuarioSegundo = u.idUsuario"
+                . " WHERE idUsuarioPrimeiro = $idUsuario AND "
+                . " idUsuarioSegundo = $idUsuario "
+                . " and status = StatusModel::STATUS_CONVITE_ENVIADO Order by nome ASC";
+        return $this->consultAll($query);
+    }
+
+
+    function obterRelacionamento($idUsuarioPrimeiro, $idUsuarioSegundo) {
         $query = "SELECT * FROM RELACIONAMENTOS WHERE id=$id ";
         return $this->consultOne($query);
     }
 
-    function inserir(RelacionamentosModel $relacionamento) {
+    function enviarConvite($idConvidador, $idConvidado) {
         $db = $this->db;
+        
+        if($idConvidador > $idConvidado){
+            $idUsuarioPrimeiro = $idConvidado;
+            $idUsuarioSegundo = $idConvidador;
+        }else{
+            $idUsuarioPrimeiro = $idConvidador;
+            $idUsuarioSegundo = $idConvidado;
+        }
+        
         try {
-            $sql = "INSERT INTO relacionamentos(titulo,corpo, dataCriacao, idUsuario,status) 
-                 values(:titulo,:corpo, :dataCriacao ,:idUsuario, :status)
+            $sql = "INSERT INTO relacionamentos(idUsuarioPrimeiro,idUsuarioSegundo, idConvidador,idConvidado,status) 
+                 values(:idUsuarioPrimeiro,:idUsuarioSegundo,:idConvidador,:idConvidado, :dataCriacao , :status)
                  ";
 
             $insert = $db->prepare($sql);
 
-            $insert->bindValue(":titulo", $relacionamento->getTitulo(), PDO::PARAM_STR);
+            $insert->bindValue(":idUsuarioPrimeiro", $idUsuarioPrimeiro, PDO::PARAM_INT);
 
-            $insert->bindValue(":corpo", $relacionamento->getCorpo(), PDO::PARAM_STR);
+            $insert->bindValue(":idUsuarioSegundo", $idUsuarioSegundo, PDO::PARAM_INT);
 
-            $insert->bindValue(":dataCriacao", date('Y-m-d h:i:s'), PDO::PARAM_STR);
+            $insert->bindValue(":idConvidador", $idConvidador, PDO::PARAM_INT);
+            
+             $insert->bindValue(":idConvidado", $idConvidado, PDO::PARAM_INT);
 
-            $insert->bindValue(":idUsuario", $relacionamento->getIdUsuario(), PDO::PARAM_INT);
-
-            $insert->bindValue(":status", $relacionamento->getStatus(), PDO::PARAM_INT);
+            $insert->bindValue(":status", StatusModel::STATUS_CONVITE_ENVIADO, PDO::PARAM_INT);
 
             $registro = $insert->execute();
 
@@ -52,25 +95,19 @@ Class RelacionamentosDAO extends Model {
         return false;
     }
 
-    function update(RelacionamentosModel $relacionamento) {
+    function aceitarConvite($idRelacionamento) {
         $db = $this->db;
         try {
-            $sql = "UPDATE RELACIONAMENTOS SET titulo = :titulo , corpo = :corpo, status = :status  WHERE id=:id ";
-
+            $sql = "UPDATE RELACIONAMENTOS SET status = :status  WHERE id = :id";
             $smt = $db->prepare($sql);
-            
-            $smt->bindValue(":id", $relacionamento->getId(), PDO::PARAM_INT);
-            
-            $smt->bindValue(":titulo", $relacionamento->getTitulo(), PDO::PARAM_STR);
-
-            $smt->bindValue(":corpo", $relacionamento->getCorpo(), PDO::PARAM_STR);
-            
-            $smt->bindValue(":status", $relacionamento->getStatus(), PDO::PARAM_INT);
+                
+            $smt->bindValue(":id", $idRelacionamento, PDO::PARAM_INT);
+            $smt->bindValue(":status", StatusModel::STATUS_CONVITE_ACEITO, PDO::PARAM_INT);
 
             $registro = $smt->execute();
 
             if ($registro) {
-                return $relacionamento->getId();
+                return true;
             } else {
                 $e = new PDOException();
                 throw new Exception($e->getMessage());
@@ -84,7 +121,7 @@ Class RelacionamentosDAO extends Model {
     }
 
     function deleteAmigo($id) {
-                $db = $this->db;
+        $db = $this->db;
 
         try {
             $sql = "DELETE FROM RELACIONAMENTOS WHERE id= $id";

@@ -1,44 +1,38 @@
-<?php 
+<?php
 
-Class StatusModel extends Model{ 
+Class StatusModel extends Model {
 
-private $id;
+    private $id;
+    private $status;
+    
+    const STATUS_CONVITE_ENVIADO = 3;
+    
+    const STATUS_CONVITE_ACEITO = 4;
 
-private $status;
+    function __construct() {
+        
+    }
 
-function __construct(){ 
-}
+    public function setId($id) {
 
-public function setId($id)
-{
+        $this->id = $id;
+    }
 
-$this->id=$id;
+    public function getId() {
 
-}
+        return $this->id;
+    }
 
-public function getId()
-{
+    public function setStatus($status) {
 
-return $this->id;
+        $this->status = $status;
+    }
 
-}
+    public function getStatus() {
 
-public function setStatus($status)
-{
-
-$this->status=$status;
-
-}
-
-public function getStatus()
-{
-
-return $this->status;
+        return $this->status;
+    }
 
 }
-
-
-}
-
 
 ?>

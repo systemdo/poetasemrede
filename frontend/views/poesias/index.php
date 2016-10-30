@@ -21,7 +21,13 @@
             <h3 class="titulo-poesia"><?php echo $poesia->titulo?></h3>
         </div>	
         <div class="icon-esquerda col-md-3">
-            <span class="glyphicon glyphicon-pencil icon-header-poesia" aria-hidden="true" title="É Lindo o Poema?"></span>
+            <?php 
+            var_dump($poesia->idLikePoesia);
+            if(empty($poesia->idLikePoesia)){ ?>
+            <span class="glyphicon glyphicon-pencil icon-header-poesia btn-do-like" idpoesia="<?php echo $poesia->idPoesia?>" aria-hidden="true" title="É Lindo o Poema?"></span>
+            <?php }else{ ?>
+                <span class="glyphicon glyphicon-pencil icon-header-poesia btn-do-not-like" idlikepoesia="<?php echo $poesia->idLikePoesia?>" aria-hidden="true" title="É Lindo o Poema?"></span>
+            <?php }?>        
             <span class="glyphicon glyphicon-sunglasses icon-header-poesia ver-poesia-completa" aria-hidden="true" title="Ver Texto Completo"></span>
             <span class="glyphicon glyphicon-share icon-header-poesia" aria-hidden="true" title="Quer enviar para alguém ou para voce?"></span>
         </div>		

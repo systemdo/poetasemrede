@@ -54,6 +54,22 @@ protected $data;
         
     }
     
+    public function getSliceView($view = 'index', $data = array()){
+        $this->view = $view;
+        $this->setPathView();
+        if($data){
+            if(is_array($data)){
+                if(!empty($data)){
+                    foreach($data as $name => $object){
+                        $$name = $object;
+                    }
+                }
+            }
+        }
+        require_once SD::getPathView().'/'.$view.'.php';
+        
+    }
+    
     public function setLayout($layout){
         return $this->layout = $layout;
     }

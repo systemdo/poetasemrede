@@ -1,6 +1,6 @@
 <?php 
 
-Class RelacionamentoModel extends Model{ 
+Class RelacionamentosModel extends Model{ 
 
 private $id;
 
@@ -12,7 +12,9 @@ private $status;
 
 private $dataCriacao;
 
-private $IdSolicitante;
+private $IdConvidador;
+
+private $idConvidado;
 
 function __construct(){ 
 }
@@ -87,17 +89,31 @@ return $this->dataCriacao;
 
 }
 
-public function setIdSolicitante($IdSolicitante)
+public function setIdConvidador($IdConvidador)
 {
 
-$this->IdSolicitante=$IdSolicitante;
+$this->IdConvidador=$IdConvidador;
 
 }
 
-public function getIdSolicitante()
+public function getIdConvidador()
 {
 
-return $this->IdSolicitante;
+return $this->IdConvidador;
+
+}
+
+public function setIdConvidado($idConvidado)
+{
+
+$this->idConvidado=$idConvidado;
+
+}
+
+public function getIdConvidado()
+{
+
+return $this->idConvidado;
 
 }
 
