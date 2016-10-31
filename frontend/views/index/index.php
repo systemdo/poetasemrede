@@ -51,7 +51,7 @@
 						Não mata.<br>
                       </div>
                   <div class="panel-footer">
-                      <span class="glyphicon glyphicon-comment icon-header-poesia" aria-hidden="true" title="É Lindo o Poema?"></span>
+                      <span class="glyphicon glyphicon-comment icon-header-poesia" idpoesia = aria-hidden="true" title="É Lindo o Poema?"></span>
                   </div>
                 </div>
 

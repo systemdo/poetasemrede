@@ -37,6 +37,10 @@ class UserSystem{
     function getId(){
         return $this->id;
     }
+    
+    static function user(){
+        return Login::getUserSession();
+    }
 }
 
 ?>

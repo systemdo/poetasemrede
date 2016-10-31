@@ -1,3 +1,4 @@
+<?php $user = UserSystem::user();?>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-7"></div>
@@ -22,7 +23,7 @@
         </div>	
         <div class="icon-esquerda col-md-3">
             <?php 
-            var_dump($poesia->idLikePoesia);
+            //se ja tem um like 
             if(empty($poesia->idLikePoesia)){ ?>
             <span class="glyphicon glyphicon-pencil icon-header-poesia btn-do-like" idpoesia="<?php echo $poesia->idPoesia?>" aria-hidden="true" title="É Lindo o Poema?"></span>
             <?php }else{ ?>
@@ -36,9 +37,26 @@
         <?php echo $poesia->corpo?>
     </div>
     <div class="panel-footer">
-        
-        <span class="glyphicon glyphicon-edit icon-header-poesia btn-update-poesia" id="update"  data-id="<?php echo $poesia->id?>" aria-hidden="true" title="atualizar poema?"></span>
-        <span class="glyphicon glyphicon-trash icon-header-poesia btn-delete-poesia" id="delete" data-id="<?php echo $poesia->id?>"aria-hidden="true" title="Excluir poema?"></span>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2">
+                    
+                </div>
+                <div class="col-md-8">
+                    
+                </div>
+            </div>    
+        </div>
+        <div class="col-md-12 grid-comentarios">
+            <textarea class="form-control txt_comentario" id="txt_comentario_<?php echo $poesia->idPoesia?>"></textarea>
+            <button class="btn btn-success btn-enviar-comentarios" idComentarioResposta="not" idPoesia="<?php echo $poesia->idPoesia?>" >comentar</button>
+
+        </div>
+        <span class="glyphicon glyphicon-comment icon-header-poesia btn-comentarios"  aria-hidden="true" title="É Lindo o Poema?"></span>
+        <?php if($user->getId() == $poesia->idUsuario){ ?>
+        <span class="glyphicon glyphicon-edit icon-header-poesia btn-update-poesia" id="update"  data-id="<?php echo $poesia->idPoesia?>" aria-hidden="true" title="atualizar poema?"></span>
+        <span class="glyphicon glyphicon-trash icon-header-poesia btn-delete-poesia" id="delete" data-id="<?php echo $poesia->idPoesia?>" aria-hidden="true" title="Excluir poema?"></span>
+        <?php } ?>
     </div>
 </div>
 <?php } }?>

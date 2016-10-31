@@ -244,4 +244,9 @@ class SD {
         //var_dump($url);
         header("Location:$url");
     }
+    
+    
+    static public function userSystem(){
+        
+    }
 }

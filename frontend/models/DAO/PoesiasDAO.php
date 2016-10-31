@@ -8,7 +8,7 @@ Class PoesiasDAO extends Model {
     }
 
     function obterPoesiasPorUsuario($idUsuario) {
-        $query = "SELECT p.id as idPoesia, titulo , corpo, lp.idPoesia as idPoesiaLikePoesia, lp.id as idLikePoesia  FROM POESIAS p "
+        $query = "SELECT p.id as idPoesia, p.idUsuario,titulo , corpo, lp.idPoesia as idPoesiaLikePoesia, lp.id as idLikePoesia  FROM POESIAS p "
                 . " LEFT JOIN LIKES_POESIA lp on p.id=lp.idPoesia"
                 . " WHERE p.idUsuario=$idUsuario "
                 /*. " --AND lp.idUsuario=$idUsuario*/

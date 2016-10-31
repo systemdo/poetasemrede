@@ -1,124 +1,89 @@
-<?php 
+<?php
 
-Class ComentariosModel extends Model{ 
+Class ComentariosModel extends Model {
 
-private $id;
+    private $id;
+    private $comentario;
+    private $resposta;
+    private $idUsuario;
+    private $idPoesia;
+    private $dataCriacao;
+    private $dataUpdate;
 
-private $comentarios;
+    function __construct() {
+        
+    }
 
-private $resposta;
+    public function setId($id) {
 
-private $usuario;
+        $this->id = $id;
+    }
 
-private $poesia;
+    public function getId() {
 
-private $dataInserido;
+        return $this->id;
+    }
 
-private $dataUpdate;
+    public function setComentario($comentario) {
 
-function __construct(){ 
-}
+        $this->comentario = $comentario;
+    }
 
-public function setId($id)
-{
+    public function getComentario() {
 
-$this->id=$id;
+        return $this->comentario;
+    }
 
-}
+    public function setResposta($resposta) {
 
-public function getId()
-{
+        $this->resposta = $resposta;
+    }
 
-return $this->id;
+    public function getResposta() {
 
-}
+        return $this->resposta;
+    }
 
-public function setComentarios($comentarios)
-{
+    public function setIdUsuario($idUsuario) {
 
-$this->comentarios=$comentarios;
+        $this->idUsuario = $idUsuario;
+    }
 
-}
+    public function getIdUsuario() {
 
-public function getComentarios()
-{
+        return $this->idUsuario;
+    }
 
-return $this->comentarios;
+    public function setIdPoesia($idPoesia) {
 
-}
+        $this->idPoesia = $idPoesia;
+    }
 
-public function setResposta($resposta)
-{
+    public function getIdPoesia() {
 
-$this->resposta=$resposta;
+        return $this->idPoesia;
+    }
 
-}
+    public function setDataCriacao($dataCriacao) {
 
-public function getResposta()
-{
+        $this->dataCriacao = $dataCriacao;
+    }
 
-return $this->resposta;
+    public function getDataCriacao() {
 
-}
+        return $this->dataCriacao;
+    }
 
-public function setUsuario($usuario)
-{
+    public function setDataUpdate($dataUpdate) {
 
-$this->usuario=$usuario;
+        $this->dataUpdate = $dataUpdate;
+    }
 
-}
+    public function getDataUpdate() {
 
-public function getUsuario()
-{
-
-return $this->usuario;
-
-}
-
-public function setPoesia($poesia)
-{
-
-$this->poesia=$poesia;
-
-}
-
-public function getPoesia()
-{
-
-return $this->poesia;
+        return $this->dataUpdate;
+    }
 
 }
-
-public function setDataInserido($dataInserido)
-{
-
-$this->dataInserido=$dataInserido;
-
-}
-
-public function getDataInserido()
-{
-
-return $this->dataInserido;
-
-}
-
-public function setDataUpdate($dataUpdate)
-{
-
-$this->dataUpdate=$dataUpdate;
-
-}
-
-public function getDataUpdate()
-{
-
-return $this->dataUpdate;
-
-}
-
-
-}
-
 
 ?>
