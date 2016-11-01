@@ -8,9 +8,13 @@ Class ComentariosDAO extends Model {
     }
 
     function obterComentariosPorPoesia($idPoesia) {
-        $query = "SELECT * FROM COMENTARIOS c"
+        $query = "SELECT c.id, comentario, resposta, dataCriacao, u.id as idUsuario, u.pseudonimo" 
+                    ." FROM COMENTARIOS c" 
+                   . " JOIN USUARIOS u" 
+                    ." on c.idUsuario = u.id"
                 ." WHERE idPoesia = $idPoesia "
-                . " Order by dataInserido DESC";
+                . " Order by dataCriacao ASC";
+        //die($query);
         return $this->consultAll($query);
     }
 

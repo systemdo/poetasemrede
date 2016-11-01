@@ -17,15 +17,21 @@ class PoesiasController extends Controller {
     function index() {
         $this->loadModels('PoesiasDAO', 'DAO');
         $this->loadModels("PoesiasModel");
+        $this->loadModels('ComentariosDAO', 'DAO');
         $poesia = new PoesiasModel();
         $poesiaDAO = new PoesiasDAO();
             
         $usuario = Login::getUserSession();
+        
         $poesias = $poesiaDAO->obterPoesiasPorUsuario( $usuario->getId());
+        
+        $comentarios = new ComentariosDAO(); 
+        
         
         $this->view->setJs(array("poetas.js","ckeditor/ckeditor.js" , "poesias/poesias.js"));
         $this->view('index',array(
             'poesias' => $poesias,
+            'comentarios'=> $comentarios,
         ));
     }
     

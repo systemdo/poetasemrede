@@ -6,12 +6,21 @@ comentarios = {
             data: {idPoesia: idPoesia, comentario: comentario ,idComentarioResposta: idComentarioResposta},
             dataType: "json",
             success: function (data) {
-                console.debug(data.resposta);
+                //console.debug(data.resposta);
                 if (data.resposta) {
-                    obj.removeClass('btn-do-like');
-                    obj.addClass('btn-do-not-like');
-                }
-
+                    comentarios.getHtmlComentarios(idPoesia, 'grid-comentarios');        
+                }                    
+            }
+        });
+    },
+    getHtmlComentarios : function(idPoesia, lugar){
+        $.ajax({
+            url: 'comentarios/htmlComentarios',
+            method: "POST",
+            data: {idPoesia: idPoesia},
+            dataType: "html",
+            success: function (data) {
+                $('#'+lugar).html(data);
             }
         });
     },

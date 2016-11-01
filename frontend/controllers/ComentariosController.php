@@ -105,6 +105,14 @@ class ComentariosController extends Controller {
             $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
         }
     }
+    function htmlComentarios(){
+        $this->loadModels('ComentariosDAO', 'DAO');
+        $comentarioDAO = new ComentariosDAO();
+        $comentarios = $comentarioDAO->obterComentariosPorPoesia($_POST['idPoesia']);
+        $this->view->viewAjax('comentarios/comentarios', array(
+            "comentarios"=> $comentarios,
+        ));
+    }
 
 }
 
