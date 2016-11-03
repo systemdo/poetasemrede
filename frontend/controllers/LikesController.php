@@ -63,6 +63,49 @@ class LikesController extends Controller {
             $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
         }
     }
+    function inserirLikesComentarios() {
+        if (!empty($_POST['idComentario'])) {
+            $this->loadModels('LikesComentariosDAO', 'DAO');
+            $this->loadModels("LikesComentariosModel");
+            
+            $comentarios = new LikesComentariosModel();
+            $comentariosDAO = new LikesComentariosDAO();
+
+            $usuario = Login::getUserSession();
+            $comentarios->setIdComentario($_POST['idComentario']);
+            $comentarios->setIdUsuario($usuario->getId());
+            $resposta = $comentariosDAO->inserirLike($comentarios);
+            if ($resposta) {
+                $resposta = true;
+                $mensagem = 'ok';
+            } else {
+                $resposta = false;
+                $mensagem = 'not';
+            }
+            $this->getJson(array('resposta' => $resposta, 'mensagem' => utf8_decode($mensagem)));
+        } else {
+            $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
+        }
+    }
+
+    function deleteLikeComentarios() {
+        if (!empty($_POST['idComentario'])) {
+            $this->loadModels('LikesComentariosDAO', 'DAO');
+            $likesDAO = new LikesPoesiasDAO();
+
+            if ($likesDAO->deleteLike($_POST['idComentario'])) {
+                $resposta = true;
+                $mensagem = 'ok';
+            } else {
+                $resposta = false;
+                $mensagem = 'not';
+            };
+
+            $this->getJson(array('resposta' => $resposta, 'mensagem' => utf8_decode($mensagem)));
+        } else {
+            $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
+        }
+    }
 
 }
 

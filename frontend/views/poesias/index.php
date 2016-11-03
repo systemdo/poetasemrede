@@ -35,17 +35,23 @@
                 </div>		
             </div>
             <div class="panel-body">
-        <?php echo $poesia->corpo ?>
+                <?php echo $poesia->corpo ?>
             </div>
             <div class="panel-footer">
                 <div class="col-md-12" id="grid-comentarios">
                     <div class="row lista-comentarios">
                         <?php
                         $cs = $comentarios->obterComentariosPorPoesia($poesia->idPoesia);
-                        if (!empty($cs)) {
-                            foreach ($cs as $key => $comentario) {
+                        //print_r($cs);
+                        $this->getSliceView('comentarios/comentarios', array('comentarios' => $cs));
+
+                       /* if(!empty($cs)) {
+//                           *foreach ($cs as $key => $comentario) {
+                                //print_r($comentario);
+                                //$this->getSliceView('comentarios/comentarios', array('comentarios' => $comentario));
                                 ?>
-                                <div class="col-md-12">
+                        
+<!--                                <div class="col-md-12">
                                     <div class="col-md-2">
                                         <img width="40%" class="img img-circle" src="frontend/web/uploads/imgteste.jpg" >
                                     </div>
@@ -54,10 +60,10 @@
                                         <span class="glyphicon glyphicon-option-vertical icon-header-poesia btn-comentarios"  aria-hidden="true" title="É Lindo o Poema?"></span>
                                         <?php echo $comentario->comentario ?>  
                                     </div>
-                                </div>    
+                                </div>    -->
                                 <?php
                             }
-                        }
+                        }*/
                         ?>
                     </div>    
                 </div>

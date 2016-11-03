@@ -7,12 +7,14 @@ if (!empty($relacionamentos)) {
         ?>            
         <div class="col-md-3 col-sm-6">
             <div class="thumbnail">
-                <img class="img-circle img-responsive" src="frontend/web/uploads/imgteste.jpg" alt="">
+                <img class="img-circle img-responsive" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" alt="">
                 <div class="caption">
                     <h3><?php echo $relacionamento->nome ?></h3>
                     <p><?php echo $relacionamento->pseudonimo ?></p>
                     <p>
-                        <a href="perfil/verPerfilAmigo/<?php echo $relacionamento->idUsuario ?>" class="btn btn-primary">Ver Perfil</a> 
+                        
+                         <a class="btn btn-primary" href="<?php echo SD::getAppUrl() . '/profile/index/'.$relacionamento->nome.'/'. $relacionamento->id?>">Perfil</a>
+
                     </p>
                 </div>
             </div>

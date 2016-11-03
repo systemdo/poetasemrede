@@ -18,6 +18,19 @@ Class RelacionamentosDAO extends Model {
                 . "r.status = StatusModel::STATUS_CONVITE_ACEITO Order by nome ASC";
         return $this->consultAll($query);
     }
+    
+    function obterAmigosPorUsuarioPorLimite($idUsuario,$limit) {
+        $query = "SELECT * FROM USUARIOS u "
+                . " JOIN RELACIONAMENTOS r "
+                . " on r.idConvidador=u.id "
+                . " OR r.idConvidado = u.id "
+                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario"
+                . " r.status = StatusModel::STATUS_CONVITE_ACEITO "
+                . " Order by dataCriacao DESC "
+                . " LIMIT $limit";
+        return $this->consultAll($query);
+    }
+    
     function procurarAmigosPorIndex($nome) {
          $query = "SELECT * FROM USUARIOS  "
                 . " WHERE nome like '%" . $nome . "%' OR "

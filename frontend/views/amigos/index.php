@@ -1,5 +1,3 @@
-<div>
-
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#amigos" aria-controls="amigos" role="tab" data-toggle="tab">Amigos</a></li>
@@ -33,5 +31,3 @@
                 <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
         </div>
     </div>
-
-</div>

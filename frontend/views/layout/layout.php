@@ -69,8 +69,8 @@
         <div class="row conteudo-principal">
             <div class="col-md-2 menu-pessoal">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active"><a href="#">Início</a></li>
-                    <li role="presentation"><a href="#">Profile</a></li>
+                    <li role="presentation" class="active"><a href="<?php echo SD::getAppUrl()?>">Início</a></li>
+                    <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/profile' ?>">Profile</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/poesias' ?>">Poesias</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/amigos' ?>">Amigos</a></li>
                     <!--<li role="presentation"><a href="#">Grupos</a></li>-->
@@ -114,6 +114,8 @@
     <script type="text/javascript">
         likes.eventLike();
         likes.eventTakeLike();
+        likes.eventLikeComentarios();
+        likes.eventTakeLikeComentarios();
         comentarios.eventComent();
         comentarios.eventUpdateComent();
         comentarios.eventDeleteComent();

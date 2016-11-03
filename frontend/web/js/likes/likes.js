@@ -42,6 +42,52 @@ likes = {
             var idlikepoesia = $(this).attr('idlikepoesia');
             likes.deleteLikes(idlikepoesia,$(this));
         });
+    },
+    insertLikesComentarios: function (idComentario, obj) {
+        $.ajax({
+            url: 'likes/inserirLikesComentarios',
+            method: "POST",
+            data: {idComentario: idComentario},
+            dataType: "json",
+            success: function (data) {
+                console.debug(data.resposta);
+                 if(data.resposta){
+                     console.debug(obj);
+                    obj.removeClass('btn-do-like-comentario');
+                    obj.addClass('btn-do-not-like-comentario');
+                }
+
+            }
+        });
+    },
+    deleteLikesComentarios: function (idComentario , obj) {
+        $.ajax({
+            url: 'likes/deleteLikeComentarios',
+            method: "POST",
+            data: {idComentario: idComentario},
+            dataType: "json",
+            success: function (data) {
+                console.debug(data.resposta);
+                if(data.resposta){
+                    obj.removeClass('btn-do-not-like-comentario');
+                    obj.addClass('btn-do-like-comentario');
+                }
+                
+            }
+        });
+    },
+    eventLikeComentarios: function () {
+        $('.btn-do-like-comentario').on('click', function () {
+            var idComentario = $(this).attr('idComentario');
+            likes.insertLikesComentarios(idComentario, $(this));
+        });
+    },
+    eventTakeLikeComentarios: function () { 
+        $('.btn-do-not-like-comentario').on('click', function () {
+            var idComentario = $(this).attr('idComentario');
+             alert('a');
+           likes.deleteLikesComentarios(idComentario,$(this));
+        });
     }
 }
 
