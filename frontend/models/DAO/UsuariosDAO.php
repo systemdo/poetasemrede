@@ -24,25 +24,8 @@ Class UsuariosDAO extends Model{
                          values('".$usuario->getNome() ."','".$usuario->getSobrenome()."','".$usuario->getEmail()."','".$usuario->getNascimento()."','".$usuario->getSenha()."','". $usuario->getStatus() ."','".$usuario->getPseudonimo()."')
                  ";
              $result = $db->prepare($sql);
+             
              //die($sql);
-             //echo $registro = $result->execute();
-             //die($sql);
-             /*$result->bindValue(":nome",$usuario->getNome() , PDO::PARAM_STR);
-             //var_dump($usuario->getNome());
-             $result->bindValue(":sobrenome",$usuario->getSobrenome(),PDO::PARAM_STR);
-             //var_dump($usuario->getSobrenome());
-             $result->bindValue(":email",$usuario->getEmail(), PDO::PARAM_STR);
-             //$result->bindValue(":imagem", $usuario->getImagem(), PDO::PARAM_STR);
-             //echo date("Y-m-d", strtotime($usuario->getNascimento()));
-            $result->bindValue(":nascimento", date("Y-m-d"), PDO::PARAM_STR);
-             //var_dump($usuario->getNascimento());
-             $result->bindValue(":senha", $usuario->getSenha(), PDO::PARAM_STR);
-            // var_dump($usuario->getSenha());
-            // $result->bindValue(":descricao", $usuario->getDescricao(), PDO::PARAM_STR);
-             $result->bindValue(":status", $usuario->getStatus(), PDO::PARAM_INT);
-            // var_dump($usuario->getStatus());
-            $result->bindValue(":pseudonimo", $usuario->getPseudonimo(), PDO::PARAM_STR);
-            //var_dump($usuario->getStatus());*/
              $registro = $result->execute();
              //var_dump($registro);
              if($registro){

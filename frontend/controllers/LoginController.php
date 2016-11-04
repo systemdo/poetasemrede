@@ -17,9 +17,10 @@ class LoginController extends Controller {
             $email = $_POST['loginEmail'];
             $password = $_POST['loginPassword'];
             if(Login::login($email, $password)){
+
                 Login::loginRedirect('index');
             }else{
-                 $this->view->setLayout("LoginLayout");
+                 Login::loginRedirect('login');
             }
            
         }else{

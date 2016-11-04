@@ -200,24 +200,27 @@
                     $('#modal-cadastro').modal('show');
                 });
                 
-                //$('#btn-cadastrar-usuario').click(function (e) {
-                    $('#cadastrar_usuario').submit(function (e) {
+                 $('#cadastrar_usuario').submit(function (e) {
                     
                         e.preventDefault();
-                    $.post( 'usuarios/cadastrarUsuarios/cadastrar-usuario', 
-                            $("#cadastrar_usuario").serialize(), 
-                            function(dados){})
-                            .done(function(dados) {
-                                console.debug(dados);
-                          if(dados.resposta){
-                                alert('Você está na Rede');
-                                location.reload();    
-                          }else{
-                              alert(dados.mensagem);
-                          }
-                    });
+                        $.ajax({
+                            url: 'usuarios/cadastrarUsuarios/cadastrar-usuario',
+                            method: "POST",
+                            data: $("#cadastrar_usuario").serialize(),
+                            dataType: "json",
+                            success:function(dados){
+                                if(dados.resposta){
+                                    alert('Você está na Rede');
+                                    location.reload();    
+                                }else{
+                                    alert(dados.mensagem);
+                                }
+                            }
+                          });
+                    
                     return false;   
                 });
+                
                 
             });
         </script>
