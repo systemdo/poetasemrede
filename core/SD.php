@@ -55,7 +55,7 @@ class SD {
         self::$app_url = APP_URL;
         self::loadCoreClass();
         self::$Config = new Config();
-        GeneratorModels::loadGenerator();
+        //GeneratorModels::loadGenerator();
         self::$Request = new Request();
         
         
@@ -246,7 +246,10 @@ class SD {
     }
     
     
-    static public function userSystem(){
-        
+    static public function getUrlUpload($dir = false){
+       if($dir){
+           return self::getAppUrlPublicFiles().'/'.$dir;
+       } 
+       return self::getAppUrlPublicFiles().'/uploads';
     }
 }

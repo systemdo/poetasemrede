@@ -1,8 +1,8 @@
-<div class="jumbotron">
-  <div class="container">
-    <img width="100%" class="img" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
-    <img style="position:absolute;top:75px;right: 43px;" width="20%" class="img img-circle" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
-  </div>
+<div class="col-md-12 fotos-perfil">
+    <img width="100%" class="img-portada" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
+    <div class="img-thumb">
+        <img style="" class="img img-circle" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
+    </div>
 </div>
 <style type="text/css">
     .panel-poesia{

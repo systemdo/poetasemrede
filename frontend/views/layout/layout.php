@@ -27,35 +27,33 @@
     </head>
 
     <body>
-
+        <header>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
+                <div class="navbar-header ">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Poetas-Continue a Nadar</a>
+                    <a class="navbar-brand header-titulo" href="#">Poetas-Continue a Nadar</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-left">
+                    <!--<form class="navbar-form navbar-left">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"> <span class="glyphicon glyphicon-cloud icon-header-poesia" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
+                    </form>-->
+                    <ul class="nav navbar-nav navbar-right nav-principal">
+                        <li><a href="#"> <span class="glyphicon glyphicon-cloud icons-poesia icon-header-notificacao" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
                         <li>
-                            <a href="#">
-                                <img class="img-circle" src="http://placehold.it/40x40" alt="">
-                            </a>
+                            <img class="img-circle" src="<?php echo SD::getUrlUpload()?>/imgteste.jpg" alt="">
                         </li>
 
                     </ul>
@@ -64,6 +62,7 @@
             </div><!-- /.container-fluid -->
         </nav>
     </nav>
+    </header>
 
     <div class="container-fluid">
         <div class="row conteudo-principal">
@@ -90,14 +89,11 @@
 
     <!-- Footer -->
     <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
+        <div class="container">        
+            <p>Copyright &copy; Lucas Silvério Marques <?php echo date('Y');?></p>
         </div>
     </footer>
-
-
+    
 
     <!-- jQuery -->
     <script src="<?php echo $this->getPathJS() ?>/jquery.js"></script>

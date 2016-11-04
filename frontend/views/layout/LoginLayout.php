@@ -52,11 +52,11 @@
                             <!--<label class="sr-only" for="exampleInputPassword3">Password</label>-->
                             <input type="password" class="form-control" required name="loginPassword" id="loginPassword" placeholder="Senha">
                         </div>
-                        <div class="checkbox">
+                        <!--<div class="checkbox">
                             <label>
                                 <input type="checkbox"> Nunca te esquecerei meu amor!
                             </label>
-                        </div>
+                        </div>-->
                         <button type="submit" class="btn btn-default btn-login">Venha</button>
                     </form>
                 </div>
@@ -91,59 +91,18 @@
 
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img class="img-circle img-responsive" src="http://placehold.it/800x500" alt="">
+                        <img class="img-circle" src="<?php echo SD::getUrlUpload()?>/imgteste.jpg" alt="">
                         <div class="caption">
                             <h3>Joao o Lirico </h3>
                             <p>Eu sou o poeta do amor.</p>
                             <p>
-                                <a href="#" class="btn btn-primary"	>Ver Perfil</a> 
+                                <a href="#" class="btn btn-primary">Ver Perfil</a> 
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 hero-feature">
-                    <div class="thumbnail">
-                        <img class="img-circle" src="http://placehold.it/800x500" alt="">
-                        <div class="caption">
-                            <h3>Feature Label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6 hero-feature">
-                    <div class="thumbnail">
-                        <img class="img-circle" src="http://placehold.it/800x500" alt="">
-                        <div class="caption">
-                            <h3>Feature Label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6 hero-feature">
-                    <div class="thumbnail">
-                        <img class="img-circle" src="http://placehold.it/800x500" alt="">
-                        <div class="caption">
-                            <h3>Feature Label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /.row -->
-
+              
             <hr>
 
             <!-- Footer -->

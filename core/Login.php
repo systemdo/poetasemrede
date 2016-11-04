@@ -59,6 +59,7 @@ Class Login {
         if (Login::isLogin()) {
             unset($_SESSION["login_user"]);
             session_destroy();
+            SD::loginRedirect();
         }
     }
 

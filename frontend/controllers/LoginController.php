@@ -7,8 +7,6 @@ class LoginController extends Controller {
     }
 
     function index(){
-                var_dump($_SESSION);
-
         $this->view->setLayout("LoginLayout");
         $this->view();
     }
@@ -27,6 +25,10 @@ class LoginController extends Controller {
         }else{
             Login::loginRedirect('index');
         }
+    }
+    
+    function logout(){
+        
     }
 		
 }

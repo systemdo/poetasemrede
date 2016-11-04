@@ -11,6 +11,19 @@ amigos = {
                 }
             }
         });
+    },
+    enviarConvite:function(idConvidado){
+        $.ajax({
+            url: '/amigos/enviarConvite',
+            method: "POST",
+            data: { idConvidado : idConvidado },
+            dataType: "json",
+            success: function (data) {
+                if (data.resposta) {
+                   location.reload();
+                }
+            }
+        });
     }
 }
 
@@ -25,6 +38,13 @@ $(document).ready(function () {
     $('#txt-procurar-relacionamentos').on('keyup', function () {
         var nome = $(this).val();
         amigos.procurarAmigos('amigos/procurarAmigosHtml/' + nome + '/4', 'grid-relacionamento');
+
+    });
+    
+    $('.tab-content').on('click','.btn-convidar', function () {
+        
+        var idConvidado = $(this).attr('idConvidado');
+        amigos.enviarConvite(idConvidado);
 
     });
     /*$('#txt-procurar-amigos-pendentes').on('keyup', function () {

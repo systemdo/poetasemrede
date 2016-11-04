@@ -1,5 +1,5 @@
 <?php
-//var_dump($relacionamentos);
+var_dump($relacionamentos);
 if (!empty($relacionamentos)) {
     ?>
     <?php
@@ -12,9 +12,10 @@ if (!empty($relacionamentos)) {
                     <h3><?php echo $relacionamento->nome ?></h3>
                     <p><?php echo $relacionamento->pseudonimo ?></p>
                     <p>
-                        
                          <a class="btn btn-primary" href="<?php echo SD::getAppUrl() . '/profile/index/'.$relacionamento->nome.'/'. $relacionamento->id?>">Perfil</a>
-
+                         <?php //if(empty($relacionamento->convidador) or empty($relacionamento->convidado)){?>
+                         <button class="btn btn-primary btn-convidar" idConvidado="<?php echo $relacionamento->id?>">Convite</button>
+                         <?php //} ?>
                     </p>
                 </div>
             </div>

@@ -12,10 +12,11 @@ Class RelacionamentosDAO extends Model {
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
                 . " OR r.idConvidado = u.id "
-                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario"
+                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario AND <> u.id = $idUsuario"
                 . " AND nome like '%" . $nome . "%' OR "
                 . " pseudonimo = '%".$nome."%' "
                 . "r.status = StatusModel::STATUS_CONVITE_ACEITO Order by nome ASC";
+        die($query);
         return $this->consultAll($query);
     }
     
@@ -31,11 +32,13 @@ Class RelacionamentosDAO extends Model {
         return $this->consultAll($query);
     }
     
-    function procurarAmigosPorIndex($nome) {
+    function procurarAmigosPorIndex($idUsuario, $nome) {
          $query = "SELECT * FROM USUARIOS  "
-                . " WHERE nome like '%" . $nome . "%' OR "
-                . " pseudonimo = '%".$nome."%' Order by nome ASC";
-      // die($query);
+                . " WHERE id <> $idUsuario "
+                 . " AND (nome like '%" . $nome . "%' OR "
+                . " pseudonimo = '%".$nome."%' ) "
+                . " Order by nome ASC";
+//    die($query);id <> 4 AND (nome like '%lucas%' OR  pseudonimo = '%lucas%') 
         return $this->consultAll($query);
     }
 
@@ -66,7 +69,6 @@ Class RelacionamentosDAO extends Model {
 
     function enviarConvite($idConvidador, $idConvidado) {
         $db = $this->db;
-        
         if($idConvidador > $idConvidado){
             $idUsuarioPrimeiro = $idConvidado;
             $idUsuarioSegundo = $idConvidador;
@@ -77,7 +79,7 @@ Class RelacionamentosDAO extends Model {
         
         try {
             $sql = "INSERT INTO relacionamentos(idUsuarioPrimeiro,idUsuarioSegundo, idConvidador,idConvidado,status) 
-                 values(:idUsuarioPrimeiro,:idUsuarioSegundo,:idConvidador,:idConvidado, :dataCriacao , :status)
+                 values(:idUsuarioPrimeiro,:idUsuarioSegundo,:idConvidador,:idConvidado , :status)
                  ";
 
             $insert = $db->prepare($sql);
@@ -93,7 +95,7 @@ Class RelacionamentosDAO extends Model {
             $insert->bindValue(":status", StatusModel::STATUS_CONVITE_ENVIADO, PDO::PARAM_INT);
 
             $registro = $insert->execute();
-
+           
             if ($registro) {
                 return $db->lastInsertId();
             } else {
@@ -101,9 +103,9 @@ Class RelacionamentosDAO extends Model {
                 throw new Exception($e->getMessage());
             }
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error: ' . print_r($e->getMessage());
         } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error: ' . print_r($e->getMessage());
         }
         return false;
     }
@@ -147,6 +149,7 @@ Class RelacionamentosDAO extends Model {
         }
         return false;
     }
+   
 
 }
 

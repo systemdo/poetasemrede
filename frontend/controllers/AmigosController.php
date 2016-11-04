@@ -55,11 +55,12 @@ class AmigosController extends Controller {
         $this->view->setLayout(false);
         
         $usuario = Login::getUserSession(); 
+        
         if($status == StatusModel::STATUS_CONVITE_ACEITO){
             $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuarioPorIndex($usuario->getId(), $nome);
         }else{
            //lista de todos os relacionamentos
-            $relacionamentos = $relacionamentoDAO->procurarAmigosPorIndex($nome);
+            $relacionamentos = $relacionamentoDAO->procurarAmigosPorIndex($usuario->getId(),$nome);
             
         }
         $this->view->viewAjax('amigos/verAmigos', array(
@@ -84,6 +85,30 @@ class AmigosController extends Controller {
         } else {
             $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
         }
+    }
+    
+    function enviarConvite(){
+        $this->loadModels('RelacionamentosDAO', 'DAO');
+        $this->loadModels("StatusModel");
+        $this->view->setLayout(false);
+        
+        $usuario = Login::getUserSession(); 
+        if (!empty($_POST['idConvidado'])) {
+            $this->loadModels('RelacionamentosDAO', 'DAO');
+            $relacionamentoDAO = new RelacionamentosDAO();
+            if ($relacionamentoDAO->enviarConvite($usuario->getId(), $_POST['idConvidado'])) {
+                $resposta = true;
+                $mensagem = 'Amizade com sucesso';
+            } else {
+                $resposta = false;
+                $mensagem = 'Não foi possivel';
+            };
+
+            $this->getJson(array('resposta' => $resposta, 'mensagem' => utf8_decode($mensagem)));
+        } else {
+            $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
+        }
+        
     }
 
 }
