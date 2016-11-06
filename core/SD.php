@@ -175,10 +175,10 @@ class SD {
     }
     
     
-    static function print_app($d){
+    static function printApp($d){
         echo "<pre>";
         print_r($d);
-        echo "<pre>";
+        echo "</pre>";
     }
     
     static function getServerName(){

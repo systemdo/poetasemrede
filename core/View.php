@@ -53,7 +53,8 @@ protected $data;
         require_once SD::getPathView().'/'.$view.'.php';
         
     }
-    
+    /*@return
+     */
     public function getSliceView($view = 'index', $data = array()){
         $this->view = $view;
         $this->setPathView();
@@ -69,6 +70,22 @@ protected $data;
         require_once SD::getPathView().'/'.$view.'.php';
         
     }
+     public function getSliceViewHtml($view = 'index', $data = array()){
+        $this->view = $view;
+        $this->setPathView();
+        if(is_array($data)){
+            if(!empty($data)){
+                foreach($data as $name => $object){
+                    $$name = $object;
+                    $this->data [$name] = $$name; 
+
+                }
+            }
+        }
+        
+        return $this->getRenderedHtml(SD::getPathView().'/'.$view.'.php');
+       
+    }
     
     public function setLayout($layout){
         return $this->layout = $layout;
@@ -78,7 +95,7 @@ protected $data;
         return $this->controller;
     }
     
-    private function getRenderedHtml(){
+    private function getRenderedHtml($path = false){
         ob_start();
             
             if(is_array( $this->data)){
@@ -90,7 +107,11 @@ protected $data;
                     }
                 }
             }
-            include($this->getPathView());
+            if($path){
+                include($path);
+            } else{
+                include($this->getPathView());
+            }   
             $html = ob_get_contents();
         ob_end_clean();
         return $html;

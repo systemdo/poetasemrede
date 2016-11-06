@@ -28,7 +28,7 @@ class PoesiasController extends Controller {
         $comentarios = new ComentariosDAO(); 
         
         
-        $this->view->setJs(array("poetas.js","ckeditor/ckeditor.js" , "poesias/poesias.js"));
+        //$this->view->setJs(array("poetas.js","ckeditor/ckeditor.js" , "poesias/poesias.js"));
         $this->view('index',array(
             'poesias' => $poesias,
             'comentarios'=> $comentarios,

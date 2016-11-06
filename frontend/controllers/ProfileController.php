@@ -18,7 +18,7 @@ class ProfileController extends Controller {
         $usuario = Login::getUserSession();
         $comentarios = new ComentariosDAO(); 
         $relacionamentosDAO = new RelacionamentosDAO();
-        
+        $visitante = false;
         if($id){
             $poesias = $poesiaDAO->obterPoesiasPorUsuario( $id);
             $relacionamentos = $relacionamentosDAO ->obterAmigosPorUsuarioPorLimite($id,6);
@@ -28,11 +28,12 @@ class ProfileController extends Controller {
         }
         
         
-        $this->view->setJs(array("poetas.js","ckeditor/ckeditor.js" , "poesias/poesias.js"));
+        //$this->view->setJs(array("poetas.js","ckeditor/ckeditor.js" , "poesias/poesias.js"));
         $this->view('index',array(
             'poesias' => $poesias,
             'comentarios'=> $comentarios,
             'relacionamentos' => $relacionamentos,
+            'visitante' => $visitante,
         ));
     }
 		

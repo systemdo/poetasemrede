@@ -27,45 +27,47 @@ footer {
 }
 
 .form-cadastro{
-	margin-bottom: 21px;
+    margin-bottom: 21px;
 }
 
 
 .menu-pessoal{
-	position: fixed;
+    position: fixed;
 
 }
 .grid-content{
-	margin-left: 265px;
-	display:block;
-	/*float:left;*/
-        padding-right: 25px;
-	width:80%;
+    margin-left: 265px;
+    display:block;
+    /*float:left;*/
+    padding-right: 25px;
+    width:80%;
 }
 
 .panel-poesia{
-	width:45%;
-	margin-left:20px;
-	float:left;
-	
+    width:45%;
+    margin-left:20px;
+    float:left;
+
 }
 .panel-heading-poesia{
     height: 44px;
-	clear:both;
+    clear:both;
 }
 .icon-esquerda{
-	text-align:right;
+    text-align:right;
 }
 .titulo-poesia{
-	text-align:center;
-	margin:0;
+    text-align:center;
+    margin:0;
 }
 .icons-poesia{
-	margin-left: 10px;
-	font-weight: 600;
+    margin-left: 10px;
+    font-weight: 600;
 }
 .panel-footer{
-	text-align:right;
+    clear:both;
+    text-align:right;
+
 }
 .img-circle{
     width:100px;
@@ -84,6 +86,8 @@ footer {
     margin-left: 10px;
     font-weight: 600;
 }
+
+/*profile*/
 
 .fotos-perfil{
     height: 400px;
@@ -110,7 +114,55 @@ footer {
     width: 100%;
 }
 
+
+#btn-escrever-poesia-header{
+    margin-top: 9px; 
+}
+
+.modal-title{
+    text-align: center;
+}
+
+/*comentarios*/
+
+
 .media{
     text-align: left;
     border: 2px solid #ddd;
 }
+
+.grid-comentar{
+    display:none;
+    margin: 10px 0;
+}
+
+
+.p-btn-enviar-comentarios{
+    margin: 10px 0;
+}
+
+.img-amigo-comentario{
+    width: 36px;
+    height:36px;
+}
+.nome-comentario{
+    font-weight: 800;
+    display: inline-block;
+    width: 60%;
+    max-width: 60%;
+    float: left;
+}
+.box-btn-comentario-acoes{
+    width: 40%;
+    text-align: right;
+    display: inline-block;
+    float: left;
+    margin: 0;
+
+}
+
+.grid-comentarios,.grid-comentar{
+    float:none;
+    display:none;
+}
+

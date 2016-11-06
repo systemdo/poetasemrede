@@ -1,19 +1,21 @@
 comentarios = {
-    insertComent: function (idPoesia, comentario ,idComentarioResposta, obj) {
+    insertComent: function (idPoesia, comentario, obj) {
         $.ajax({
             url: 'comentarios/inserir',
             method: "POST",
-            data: {idPoesia: idPoesia, comentario: comentario ,idComentarioResposta: idComentarioResposta},
+            data: {idPoesia: idPoesia, comentario: comentario },
             dataType: "json",
             success: function (data) {
-                //console.debug(data.resposta);
+                console.debug(data.resposta);
                 if (data.resposta) {
-                    comentarios.getHtmlComentarios(idPoesia, 'grid-comentarios');        
+                           ///alert(idPoesia);
+                    comentarios.getHtmlComentarios(idPoesia, 'grid-comentarios-'+idPoesia);        
                 }                    
             }
         });
     },
     getHtmlComentarios : function(idPoesia, lugar){
+        console.debug(lugar);
         $.ajax({
             url: 'comentarios/htmlComentarios',
             method: "POST",
@@ -21,6 +23,15 @@ comentarios = {
             dataType: "html",
             success: function (data) {
                 $('#'+lugar).html(data);
+                $('#'+lugar).show();
+                $('#link-ver-todos-comentarios-'+idPoesia).removeClass('ver-todos-comentarios');
+                $('#link-ver-todos-comentarios-'+idPoesia).addClass('fechar-todos-comentarios');
+                $('#link-ver-todos-comentarios-'+idPoesia).text('Fechar');
+                var qtdComent = $('#quantidade-comentario-'+idPoesia).text();
+               // alert(qtdComent);
+                $('#quantidade-comentario-'+idPoesia).text( parseInt(qtdComent)+1);
+                
+                $('#txt_comentario_'+idPoesia).val('');
             }
         });
     },
@@ -49,7 +60,7 @@ comentarios = {
             success: function (data) {
                 console.debug(data.resposta);
                 if (data.resposta) {
-
+                    $('#media-comentario-'+idComentario).remove();
                 }
 
             }
@@ -59,21 +70,23 @@ comentarios = {
         $('.btn-enviar-comentarios').on('click', function () {
             var idPoesia = $(this).attr('idPoesia');
             var txt_comentario = $('#txt_comentario_'+idPoesia).val();
-            var idComentarioResposta =  $(this).attr('idComentarioResposta');
-            comentarios.insertComent(idPoesia, txt_comentario ,idComentarioResposta ,$(this));
+//            var idComentarioResposta =  $(this).attr('idComentarioResposta');
+            comentarios.insertComent(idPoesia, txt_comentario  ,$(this));
         });
     },
-    eventUpdateComent: function () {
+    /*eventUpdateComent: function () {
         $('.btn-do-like').on('click', function () {
             var idComentario = $(this).attr('idComentario');
             var txt_comentario = $('#txt_comentario_'+idPoesia).val();
             likes.insertLikes(idComentario, $(this));
         });
-    },
+    },*/
     eventDeleteComent: function () {
-        $('.btn-do-not-like').on('click', function () {
+        $('.btn-delete-comentario').on('click', function () {
             var idComentario = $(this).attr('idComentario');
-            comentarios.deleteComent(idComentario, $(this));
+            if(confirm("Tem certeza que quer deletar o comentário?")){
+                comentarios.deleteComent(idComentario, $(this));
+            }
         });
     }
 }

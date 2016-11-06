@@ -28,52 +28,59 @@
 
     <body>
         <header>
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header ">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand header-titulo" href="#">Poetas-Continue a Nadar</a>
-                </div>
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header ">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand header-titulo" href="#">Poetas-Continue a Nadar</a>
+                    </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <!--<form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>-->
-                    <ul class="nav navbar-nav navbar-right nav-principal">
-                        <li><a href="#"> <span class="glyphicon glyphicon-cloud icons-poesia icon-header-notificacao" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
-                        <li>
-                            <img class="img-circle" src="<?php echo SD::getUrlUpload()?>/imgteste.jpg" alt="">
-                        </li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <!--<form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>-->
 
-                    </ul>
+                     
 
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                        <ul class="nav navbar-nav navbar-right nav-principal">
+                            <li><button title="Escrever uma nova Poesia" id="btn-escrever-poesia-header" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button></li>
+                            <li><a href="#"> <span class="glyphicon glyphicon-cloud icons-poesia icon-header-notificacao" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
+                            <li>
+                                <img class="img-circle" src="<?php echo SD::getUrlUpload() ?>/imgteste.jpg" alt="">
+                            </li>
+
+                        </ul>
+
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
         </nav>
-    </nav>
     </header>
 
     <div class="container-fluid">
         <div class="row conteudo-principal">
+
             <div class="col-md-2 menu-pessoal">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active"><a href="<?php echo SD::getAppUrl()?>">Início</a></li>
+                    <li role="presentation" class="active"><a href="<?php echo SD::getAppUrl() ?>">Início</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/profile' ?>">Profile</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/poesias' ?>">Poesias</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/amigos' ?>">Amigos</a></li>
+                    <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/editar' ?>">Editar Perfil</a></li>
                     <!--<li role="presentation"><a href="#">Grupos</a></li>-->
                 </ul>
+                <button title="Escrever uma nova Poesia" id="btn-escrever-poesia" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button>
             </div>
 
             <div class="grid-content">
@@ -90,18 +97,34 @@
     <!-- Footer -->
     <footer>
         <div class="container">        
-            <p>Copyright &copy; Lucas Silvério Marques <?php echo date('Y');?></p>
+            <p>Copyright &copy; Lucas Silvério Marques <?php echo date('Y'); ?></p>
         </div>
     </footer>
-    
+
+    <div class="modal fade modal-poesia-content" id="modal-poesia-content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-titulo-poesia"></h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- jQuery -->
     <script src="<?php echo $this->getPathJS() ?>/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo $this->getPathJS() ?>/bootstrap.min.js"></script>
-
-    <script src="<?php echo $this->getPathJS() ?>/likes/likes.js"></script>
+    <script src="<?php echo $this->getPathJS() ?>/poetas.js"></script>
+    <script src="<?php echo $this->getPathJS() ?>/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo $this->getPathJS() ?>/poesias/poesias.js"></script>
+     <script src="<?php echo $this->getPathJS() ?>/likes/likes.js"></script>
 
     <script src="<?php echo $this->getPathJS() ?>/comentarios/comentarios.js"></script>
 
@@ -113,7 +136,7 @@
         likes.eventLikeComentarios();
         likes.eventTakeLikeComentarios();
         comentarios.eventComent();
-        comentarios.eventUpdateComent();
+        //comentarios.eventUpdateComent();
         comentarios.eventDeleteComent();
 
     </script>

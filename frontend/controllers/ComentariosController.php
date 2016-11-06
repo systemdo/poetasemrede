@@ -88,11 +88,11 @@ class ComentariosController extends Controller {
    
 
     function delete() {
-        if (!empty($_POST['idLike'])) {
+        if (!empty($_POST['idComentario'])) {
             $this->loadModels('ComentariosDAO', 'DAO');
             $comentarioDAO = new ComentariosDAO();
 
-            if ($comentarioDAO->deleteLike($_POST['idLike'])) {
+            if ($comentarioDAO->delete($_POST['idComentario'])) {
                 $resposta = true;
                 $mensagem = 'ok';
             } else {

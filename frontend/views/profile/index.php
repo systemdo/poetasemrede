@@ -12,10 +12,10 @@
     }
 </style>
 <div class="col-md-12 ">
-    <div class="col-md-6">
+    <div class="col-md-8">
          <?php $this->getSliceView('poesias/index', array('poesias' => $poesias, 'comentarios' => $comentarios)); ?>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-2">
         
         <?php
             if(!empty($relacionamentos)){

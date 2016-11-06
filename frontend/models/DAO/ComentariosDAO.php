@@ -8,7 +8,7 @@ Class ComentariosDAO extends Model {
     }
 
     function obterComentariosPorPoesia($idPoesia) {
-        $query = "SELECT c.id, comentario, resposta, dataCriacao, u.id as idUsuario, u.pseudonimo" 
+        $query = "SELECT c.id, comentario, resposta, dataCriacao, u.id as idUsuario, nome as nomeUsuario, sobrenome as sobrenomeUsuario ,u.pseudonimo" 
                     ." FROM COMENTARIOS c" 
                    . " JOIN USUARIOS u" 
                     ." on c.idUsuario = u.id"
@@ -16,6 +16,26 @@ Class ComentariosDAO extends Model {
                 . " Order by dataCriacao ASC";
         //die($query);
         return $this->consultAll($query);
+    }
+    
+     function obterQuantidadeComentariosPorPoesia($idPoesia) {
+        $query = "SELECT count(c.id) as q, 	
+		case 
+		when count(c.id) > 1 
+			then CONCAT(cast(count(c.id) as char), ' comentários')
+		when count(c.id) = 1 
+			then '1 comentário'
+                else
+			'Nenhum comentário'
+                end    
+		as quantidade" 
+                    ." FROM COMENTARIOS c" 
+                   . " JOIN USUARIOS u" 
+                    ." on c.idUsuario = u.id"
+                ." WHERE idPoesia = $idPoesia "
+                . " Order by dataCriacao ASC";
+        //die($query);
+        return $this->consultOne($query);
     }
 
    
