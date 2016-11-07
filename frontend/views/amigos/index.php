@@ -1,3 +1,4 @@
+<div class="col-md-10 col-sm-10">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#amigos" aria-controls="amigos" role="tab" data-toggle="tab">Amigos</a></li>
@@ -7,27 +8,28 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="amigos">
-            <div class="col-md-12 col-sm-12 buscador">
+        <div role="tabpanel" class="tab-pane fade in active" id="amigos">
+            <div class=" col-md-12 col-sm-12 buscador">
                 <div class="form-group">
                     <input type="text" id="txt-procurar-relacionamentos" class="form-control" placeholder="Procurar">
                 </div>  
             </div>        
-            <div class="col-md-12 col-sm-12" id="grid-relacionamento">
+            <div class="col-md-12 col-sm-12 grid-amigos" id="grid-relacionamento">
                 <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
             </div>       
         </div>
-        <div role="tabpanel" class="tab-pane" id="procurar">
-            <div class="col-md-12 col-sm-12 buscador-novos-amigos">
+        <div role="tabpanel" class="tab-pane fade " id="procurar">
+            <div class="col-md-12 col-sm-12 buscador buscador-novos-amigos">
                 <div class="form-group">
                     <input type="text" id="txt-procurar-amigos" class="form-control" placeholder="Procurar">
                 </div>  
             </div>        
-            <div class="col-md-12 col-sm-12 grid-novos-amigos" id="grid-novos-amigos">
+            <div class="col-md-12 col-sm-12 grid-amigos grid-novos-amigos" id="grid-novos-amigos">
                 <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
             </div>       
         </div>
-        <div role="tabpanel" class="tab-pane" id="pendentes">
-                <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
+        <div role="tabpanel" class="tab-pane fade" id="pendentes">
+            <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
         </div>
     </div>
+</div>

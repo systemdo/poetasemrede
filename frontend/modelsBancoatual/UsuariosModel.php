@@ -1,188 +1,133 @@
-<?php 
+<?php
 
-Class UsuariosModel extends Model{ 
+Class UsuariosModel extends Model {
 
-private $id;
+    private $id;
+    private $nome;
+    private $sobrenome;
+    private $email;
+    private $imagem;
+    private $nascimento;
+    private $descricao;
+    private $dataRegistro;
+    private $senha;
+    private $status;
+    private $pseudonimo;
 
-private $nome;
+    function __construct() {
+        
+    }
 
-private $sobrenome;
+    public function setId($id) {
 
-private $email;
+        $this->id = $id;
+    }
 
-private $imagem;
+    public function getId() {
 
-private $nascimento;
+        return $this->id;
+    }
 
-private $descricao;
+    public function setNome($nome) {
 
-private $dataRegistro;
+        $this->nome = $nome;
+    }
 
-private $senha;
+    public function getNome() {
 
-private $status;
+        return $this->nome;
+    }
 
-private $pseudonimo;
+    public function setSobrenome($sobrenome) {
 
-function __construct(){ 
-}
+        $this->sobrenome = $sobrenome;
+    }
 
-public function setId($id)
-{
+    public function getSobrenome() {
 
-$this->id=$id;
+        return $this->sobrenome;
+    }
 
-}
+    public function setEmail($email) {
 
-public function getId()
-{
+        $this->email = $email;
+    }
 
-return $this->id;
+    public function getEmail() {
 
-}
+        return $this->email;
+    }
 
-public function setNome($nome)
-{
+    public function setImagem($imagem) {
 
-$this->nome=$nome;
+        $this->imagem = $imagem;
+    }
 
-}
+    public function getImagem() {
 
-public function getNome()
-{
+        return $this->imagem;
+    }
 
-return $this->nome;
+    public function setNascimento($nascimento) {
 
-}
+        $this->nascimento = $nascimento;
+    }
 
-public function setSobrenome($sobrenome)
-{
+    public function getNascimento() {
 
-$this->sobrenome=$sobrenome;
+        return $this->nascimento;
+    }
 
-}
+    public function setDescricao($descricao) {
 
-public function getSobrenome()
-{
+        $this->descricao = $descricao;
+    }
 
-return $this->sobrenome;
+    public function getDescricao() {
 
-}
+        return $this->descricao;
+    }
 
-public function setEmail($email)
-{
+    public function setDataRegistro($dataRegistro) {
 
-$this->email=$email;
+        $this->dataRegistro = $dataRegistro;
+    }
 
-}
+    public function getDataRegistro() {
 
-public function getEmail()
-{
+        return $this->dataRegistro;
+    }
 
-return $this->email;
+    public function setSenha($senha) {
 
-}
+        $this->senha = $senha;
+    }
 
-public function setImagem($imagem)
-{
+    public function getSenha() {
 
-$this->imagem=$imagem;
+        return $this->senha;
+    }
 
-}
+    public function setStatus($status) {
 
-public function getImagem()
-{
+        $this->status = $status;
+    }
 
-return $this->imagem;
+    public function getStatus() {
 
-}
+        return $this->status;
+    }
 
-public function setNascimento($nascimento)
-{
+    public function setPseudonimo($pseudonimo) {
 
-$this->nascimento=$nascimento;
+        $this->pseudonimo = $pseudonimo;
+    }
 
-}
+    public function getPseudonimo() {
 
-public function getNascimento()
-{
-
-return $this->nascimento;
-
-}
-
-public function setDescricao($descricao)
-{
-
-$this->descricao=$descricao;
-
-}
-
-public function getDescricao()
-{
-
-return $this->descricao;
-
-}
-
-public function setDataRegistro($dataRegistro)
-{
-
-$this->dataRegistro=$dataRegistro;
+        return $this->pseudonimo;
+    }
 
 }
-
-public function getDataRegistro()
-{
-
-return $this->dataRegistro;
-
-}
-
-public function setSenha($senha)
-{
-
-$this->senha=$senha;
-
-}
-
-public function getSenha()
-{
-
-return $this->senha;
-
-}
-
-public function setStatus($status)
-{
-
-$this->status=$status;
-
-}
-
-public function getStatus()
-{
-
-return $this->status;
-
-}
-
-public function setPseudonimo($pseudonimo)
-{
-
-$this->pseudonimo=$pseudonimo;
-
-}
-
-public function getPseudonimo()
-{
-
-return $this->pseudonimo;
-
-}
-
-
-}
-
 
 ?>

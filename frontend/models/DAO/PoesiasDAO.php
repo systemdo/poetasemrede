@@ -8,14 +8,35 @@ Class PoesiasDAO extends Model {
     }
 
     function obterPoesiasPorUsuario($idUsuario) {
-        $query = "SELECT p.id as idPoesia, p.idUsuario,titulo , corpo, lp.idPoesia as idPoesiaLikePoesia, lp.id as idLikePoesia  FROM POESIAS p "
+        $collection = array();
+        $query = "SELECT p.id as idPoesia, "
+                . "p.idUsuario,titulo , "
+                . "corpo, "
+                . "dataCriacao, "
+                . "lp.idPoesia as idPoesiaLikePoesia, "
+                . "lp.id as idLikePoesia  "
+                . "FROM POESIAS p "
                 . " LEFT JOIN LIKES_POESIA lp on p.id=lp.idPoesia"
                 . " WHERE p.idUsuario=$idUsuario "
                 /*. " --AND lp.idUsuario=$idUsuario*/
                  ."  Order by dataCriacao DESC";
                  
         //die($query);
-        return $this->consultAll($query);
+        $poesias = $this->consultAll($query);
+        if (!empty($poesias)) {
+            foreach ($poesias as $poesia) {
+                $poesias = new PoesiasModel();
+                $poesias->setId($poesia->idPoesia);
+                $poesias->setTitulo($poesia->titulo);
+                $poesias->setCorpo($poesia->corpo);
+                $poesias->setDataCriacao($poesia->dataCriacao);
+                $poesias->setIdUsuario($idUsuario);
+                
+                array_push($collection, $poesias);
+            }
+        }
+        
+        return $collection;
     }
     
     function obterPoesia($id) {

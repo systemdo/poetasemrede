@@ -1,7 +1,7 @@
 <div class="col-md-12 fotos-perfil">
-    <img width="100%" class="img-portada" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
+    <img width="100%" class="img-portada" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
     <div class="img-thumb">
-        <img style="" class="img img-circle" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
+        <img style="" class="img img-circle" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
     </div>
 </div>
 <style type="text/css">
@@ -13,26 +13,52 @@
 </style>
 <div class="col-md-12 ">
     <div class="col-md-8">
-         <?php $this->getSliceView('poesias/index', array('poesias' => $poesias, 'comentarios' => $comentarios)); ?>
+        <?php
+        if($souEu){
+             $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios));
+        }
+        elseif ($souAmigo AND $status == 'Aceito') {
+            $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios));
+        }elseif ($status == 'Pendente') {
+            //troco o html caso quem convidou foi o usuario da sessao que está visitando o perfil
+            if(!$souUsuarioConvidador){
+            ?>           
+                <button class="btn btn-primary btn-aceita-convite" idRelacionamento="<?php echo $relacionamento->idRelacionamento ?>">Aceitar Convite</button>
+             <?php
+             }else{ ?>
+                <span>Convite já foi enviado. Aguarde a resposta</span>
+             <?php 
+            } 
+            
+        }else {
+            ?>
+                <button class="btn btn-primary btn-convidar" idConvidado="<?php echo $relacionamento->id ?>">Enviar Convite</button>
+            <?php
+        }
+        ?>
     </div>
     <div class="col-md-2">
-        
+
         <?php
-            if(!empty($relacionamentos)){
-            foreach($relacionamentos as $rel => $amigo){?>
-            <div class="col-md-3">
-                <a href="<?php echo SD::getAppUrl() . '/profiles/'.$amigo->pseudonimo.'/'. $amigo->id?>">
-                <div class="col-md-12">
-                    <img width="100%" class="img" src="<?php echo SD::getAppUrlPublicFiles()?>/uploads/imgteste.jpg" >
+        $relacionamento = $poeta->getAmigos();
+        if (!empty($relacionamentos)) {
+            foreach ($relacionamentos as $amigo) {
+                ?>
+                <div class="col-md-3">
+                    <a href="<?php echo SD::getAppUrl() . '/profiles/verPerfil/' . $amigo->getPseudonimo() . '/' . $amigo->getId() ?>">
+                        <div class="col-md-12">
+                            <img width="100%" class="img" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
+                        </div>
+                        <div class="col-md-12">
+                            <?php echo $amigo->nome ?>
+                        </div>
+                    </a>    
                 </div>
-                <div class="col-md-12">
-                    <?php echo $amigo->nome?>
-                </div>
-                </a>    
-            </div>
-            <?php } }else{?>
-        <a href="<?php echo SD::getAppUrl() . '/amigos' ?>" class="btn btn-primary">Procurar Amigos</a>
-            <?php } ?>
-         
+            <?php }
+        } else {
+            ?>
+            <a href="<?php echo SD::getAppUrl() . '/amigos' ?>" class="btn btn-primary">Procurar Amigos</a>
+        <?php } ?>
+
     </div>        
 </div>

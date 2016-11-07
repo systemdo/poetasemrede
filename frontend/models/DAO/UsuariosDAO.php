@@ -7,6 +7,11 @@ Class UsuariosDAO extends Model{
       return $this->consultAll($query);
   }
   
+  function consultarUsuario($idUsuario){
+      $query = "SELECT * FROM USUARIOS WHERE id=$idUsuario";
+      return $this->consultOne($query);
+  }
+  
   function verificarSeUsuarioExistePorEmail($email){
       $query = "SELECT * FROM USUARIOS WHERE=$email";
       return $this->consult($query);

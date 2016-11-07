@@ -7,20 +7,50 @@ Class RelacionamentosDAO extends Model {
         return $this->consultAll($query);
     }
 
-    function obterAmigosPorUsuarioPorIndex($idUsuario,$nome) {
-        $query = "SELECT * FROM USUARIOS u "
+    function obterAmigosPorUsuarioPorIndex($idUsuario, $nome ,$status = false) {
+        $query = "SELECT u.id as idUsuario, "
+                . " r.id as idRelacionamento, "
+                . " nome, "
+                . " sobrenome, "
+                . " pseudonimo, "
+                . " r.status , idConvidador, idConvidado"
+                . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
                 . " OR r.idConvidado = u.id "
-                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario AND <> u.id = $idUsuario"
-                . " AND nome like '%" . $nome . "%' OR "
-                . " pseudonimo = '%".$nome."%' "
-                . "r.status = StatusModel::STATUS_CONVITE_ACEITO Order by nome ASC";
-        die($query);
+                . " WHERE (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario) "
+                . " AND  u.id <> $idUsuario"
+                . " AND (nome like '%" . $nome . "%' OR "
+                . " pseudonimo = '%" . $nome . "%' )";
+                if($status){
+                    $query.= " r.status =  $status";        
+                }
+                $query.= " Order by nome ASC";
+      
+        //die($query);
         return $this->consultAll($query);
     }
-    
-    function obterAmigosPorUsuarioPorLimite($idUsuario,$limit) {
+    function obterAmigosPorUsuarioPendentes($idUsuario) {
+        $query = "SELECT u.id as idUsuario, "
+                . "r.id as idRelacionamento, "
+                . "nome, "
+                . "sobrenome, "
+                . "pseudonimo, "
+                . "r.status ,idConvidador, idConvidado "
+                . " FROM USUARIOS u "
+                . " JOIN RELACIONAMENTOS r "
+                . " on r.idConvidador=u.id "
+                . " OR r.idConvidado = u.id "
+                . " WHERE (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario) "
+                . " AND  u.id <> $idUsuario"
+                . " AND r.status = ".StatusModel::STATUS_CONVITE_ENVIADO
+                . " Order by nome ASC";
+      
+        //die($query);
+        return $this->consultAll($query);
+    }
+
+    function obterAmigosPorUsuarioPorLimite($idUsuario, $limit = false) {
         $query = "SELECT * FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
@@ -31,12 +61,12 @@ Class RelacionamentosDAO extends Model {
                 . " LIMIT $limit";
         return $this->consultAll($query);
     }
-    
+
     function procurarAmigosPorIndex($idUsuario, $nome) {
-         $query = "SELECT * FROM USUARIOS  "
+        $query = "SELECT * FROM USUARIOS  "
                 . " WHERE id <> $idUsuario "
-                 . " AND (nome like '%" . $nome . "%' OR "
-                . " pseudonimo = '%".$nome."%' ) "
+                . " AND (nome like '%" . $nome . "%' OR "
+                . " pseudonimo = '%" . $nome . "%' ) "
                 . " Order by nome ASC";
 //    die($query);id <> 4 AND (nome like '%lucas%' OR  pseudonimo = '%lucas%') 
         return $this->consultAll($query);
@@ -44,14 +74,29 @@ Class RelacionamentosDAO extends Model {
 
     //saber quais os amigos de um usuário
     function obterAmigosPorUsuario($idUsuario) {
-        $query = "SELECT * FROM RELACIONAMENTOS r "
-                . " JOIN USUARIOS u on r.idUsuarioPrimeiro=u.idUsuario AND r.idUsuarioSegundo = u.idUsuario"
-                . " WHERE idUsuarioPrimeiro = $idUsuario AND "
-                . " idUsuarioSegundo = $idUsuario "
-                . " and status <> StatusModel::STATUS_CONVITE_ENVIADO Order by nome ASC";
-        return $this->consultAll($query);
+        $query = "SELECT * FROM USUARIOS u "
+                . " JOIN RELACIONAMENTOS r "
+                . " on r.idConvidador=u.id "
+                . " OR r.idConvidado = u.id "
+                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario"
+                . " r.status = StatusModel::STATUS_CONVITE_ACEITO "
+                . " Order by dataCriacao DESC ";
+        $collection = array();
+        $amigos = $this->consultAll($query);
+        if (!empty($amigos)) {
+            foreach ($amigos as $amigo) {
+                $amigos = new UsuariosModel();
+                $amigos->setId($amigo->id);
+                $amigos->setNome($amigo->nome);
+                $amigos->setSobrenome($amigo->sobrenome);
+                $amigos->setPseudonimo($amigo->pseudonimo);
+                array_push($collection, $amigos);
+            }
+        }
+
+        return $collection;
     }
-    
+
     function obterAmigosComConvitePendente($idUsuario) {
         $query = "SELECT * FROM RELACIONAMENTOS r "
                 . " JOIN USUARIOS u on r.idUsuarioPrimeiro=u.idUsuario AND r.idUsuarioSegundo = u.idUsuario"
@@ -61,7 +106,6 @@ Class RelacionamentosDAO extends Model {
         return $this->consultAll($query);
     }
 
-
     function obterRelacionamento($idUsuarioPrimeiro, $idUsuarioSegundo) {
         $query = "SELECT * FROM RELACIONAMENTOS WHERE id=$id ";
         return $this->consultOne($query);
@@ -69,14 +113,14 @@ Class RelacionamentosDAO extends Model {
 
     function enviarConvite($idConvidador, $idConvidado) {
         $db = $this->db;
-        if($idConvidador > $idConvidado){
+        if ($idConvidador > $idConvidado) {
             $idUsuarioPrimeiro = $idConvidado;
             $idUsuarioSegundo = $idConvidador;
-        }else{
+        } else {
             $idUsuarioPrimeiro = $idConvidador;
             $idUsuarioSegundo = $idConvidado;
         }
-        
+
         try {
             $sql = "INSERT INTO relacionamentos(idUsuarioPrimeiro,idUsuarioSegundo, idConvidador,idConvidado,status) 
                  values(:idUsuarioPrimeiro,:idUsuarioSegundo,:idConvidador,:idConvidado , :status)
@@ -89,13 +133,13 @@ Class RelacionamentosDAO extends Model {
             $insert->bindValue(":idUsuarioSegundo", $idUsuarioSegundo, PDO::PARAM_INT);
 
             $insert->bindValue(":idConvidador", $idConvidador, PDO::PARAM_INT);
-            
-             $insert->bindValue(":idConvidado", $idConvidado, PDO::PARAM_INT);
+
+            $insert->bindValue(":idConvidado", $idConvidado, PDO::PARAM_INT);
 
             $insert->bindValue(":status", StatusModel::STATUS_CONVITE_ENVIADO, PDO::PARAM_INT);
 
             $registro = $insert->execute();
-           
+
             if ($registro) {
                 return $db->lastInsertId();
             } else {
@@ -115,7 +159,7 @@ Class RelacionamentosDAO extends Model {
         try {
             $sql = "UPDATE RELACIONAMENTOS SET status = :status  WHERE id = :id";
             $smt = $db->prepare($sql);
-                
+
             $smt->bindValue(":id", $idRelacionamento, PDO::PARAM_INT);
             $smt->bindValue(":status", StatusModel::STATUS_CONVITE_ACEITO, PDO::PARAM_INT);
 
@@ -149,7 +193,35 @@ Class RelacionamentosDAO extends Model {
         }
         return false;
     }
-   
+
+    function verificarAmizadeVisitante($idUsuario, UserSystem $idUsuarioVisitante) {
+        $idVisitante = $idUsuarioVisitante->getId();
+        $query = "select r.`status`,
+                  r.id as idRelacionamento,
+                  uco.id as idConvidado,	
+                  uco.nome as  nmConvidado,
+                  uco.sobrenome as sbnmConvidado,
+                  uco.pseudonimo as psConvidado,
+                  ucr.id as idConvidador,	
+                  ucr.nome as  nmConvidador,
+                  ucr.sobrenome as sbnmConvidador,
+                  ucr.pseudonimo as psConvidador
+                  from relacionamentos r 
+                  join usuarios ucr on r.idConvidador = ucr.id 
+                  join usuarios uco on r.idConvidado = uco.id  
+                  where (idConvidador = $idUsuario AND idConvidado = $idVisitante) 
+                  or (idConvidador = $idVisitante AND idConvidado = $idUsuario)";
+        return $this->consultOne($query);
+    }
+    
+    function saberSeUsuarioConvidador($idConvidador, $idConvidado) {
+       
+        $query = "select * from relacionamentos
+                  where idConvidador = $idConvidador "
+                . " AND idConvidado = $idConvidado"; 
+                  
+        return !$this->consultOne($query)?false:true;
+    }
 
 }
 

@@ -13,6 +13,8 @@ Class UsuariosModel extends UsuariosDAO {
     private $senha;
     private $status;
     private $pseudonimo;
+    private $poesias;
+    private $amigos;
 
     function __construct() {
         
@@ -126,6 +128,22 @@ Class UsuariosModel extends UsuariosDAO {
     public function getPseudonimo() {
 
         return $this->pseudonimo;
+    }
+
+    public function setPoesias($poesias) {
+        $this->poesias = $poesias;
+    }
+
+    public function getPoesias() {
+        return $this->poesias;
+    }
+
+    function setAmigos($amigos){
+        $this->amigos = $amigos;
+    }
+
+    function getAmigos() {
+        return $this->amigos;
     }
 
 }

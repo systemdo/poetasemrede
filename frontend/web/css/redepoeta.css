@@ -165,4 +165,22 @@ footer {
     float:none;
     display:none;
 }
+/*amigos*/
+.buscador{
+    margin: 10px 0;
+    float:none;
+}
+.tab-content{
+    border: 1px solid #ddd;
+    clear:both;
+}
 
+.grid-amigos{
+    float:none;
+    clear:both;
+}
+
+.sem-amigos{
+    font-weight: 800;
+    text-align: center;
+}
