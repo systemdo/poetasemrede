@@ -58,6 +58,24 @@ abstract class Controller{
         }
     }
     
+    protected function loadLibraries($libraries , $pasta=false){
+        if(is_array($libraries)){
+            foreach($libraries as $library){
+                if($pasta){
+                    require_once SD::getPathLibraries().'/'.$pasta.'/'.$library.'.php' ;
+                }else{
+                    require_once SD::getPathLibraries().'/'.$library.'.php' ;
+                }    
+            }
+        }else{
+                if($pasta){
+                    require_once SD::getPathLibraries().'/'.$pasta.'/'.$libraries.'.php' ;
+                }else{
+                    require_once SD::getPathLibraries().'/'.$libraries.'.php' ;
+                }    
+        }
+    }
+    
     protected function isXmlHttpRequest(){
        if(SD::isXmlHttpRequest()){
            $this->layout = false;
@@ -70,6 +88,22 @@ abstract class Controller{
         echo json_encode($data);
     }
     
+    function setSessionBag($data = array()){
+        if(!empty($data)){
+            $_SESSION['bag'] = $data;
+        }
+    }
+    
+    function getSessionBag(){
+        if(isset($_SESSION['bag'])){
+            $bag = $_SESSION['bag'];
+            unset($_SESSION['bag']);
+            return $bag;
+        }else{
+            return false;
+        }
+    }
+        
 
 }
 

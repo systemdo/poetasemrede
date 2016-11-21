@@ -9,7 +9,17 @@ Class UsuariosDAO extends Model{
   
   function consultarUsuario($idUsuario){
       $query = "SELECT * FROM USUARIOS WHERE id=$idUsuario";
-      return $this->consultOne($query);
+      $result = $this->consultOne($query);
+      $usuario = new UsuariosModel();
+      $usuario->setId($result->id);
+      $usuario->setNome($result->nome);
+      $usuario->setSobrenome($result->sobrenome);
+      $usuario->setPseudonimo($result->pseudonimo);
+      $usuario->getEmail($result->id);
+      $usuario->setImagem($result->imagem);
+      $usuario->setNascimento($result->nascimento);
+     
+      return $usuario;
   }
   
   function verificarSeUsuarioExistePorEmail($email){
@@ -48,6 +58,65 @@ Class UsuariosDAO extends Model{
         }  
       return false;
   }
+  
+  function update(UsuariosModel $usuario) {
+        $db = $this->db;
+        try {
+            $sql = "UPDATE USUARIOS SET nome = :nome, sobrenome = :sobrenome, "
+                    . " nascimento =:nascimento, pseudonimo = :pseudonimo"
+                    . " WHERE id=:id ";
+
+            $smt = $db->prepare($sql);
+            
+            $smt->bindValue(":id", $usuario->getId(), PDO::PARAM_INT);
+            $smt->bindValue(":nome", $usuario->getNome(), PDO::PARAM_STR);
+            $smt->bindValue(":sobrenome", $usuario->getSobrenome(), PDO::PARAM_STR);
+            $smt->bindValue(":nascimento", $usuario->getNascimento(), PDO::PARAM_STR);
+            $smt->bindValue(":pseudonimo", $usuario->getPseudonimo(), PDO::PARAM_STR);
+
+            $registro = $smt->execute();
+            if ($registro) {
+                return $usuario->getId();
+            } else {
+                $e = new PDOException();
+                throw new Exception($e->getMessage());
+            }
+        } catch (PDOException $e) {
+            return  $e->getMessage();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+        return false;
+    }
+    
+    function imagemPerfil(UsuariosModel $usuario) {
+        $db = $this->db;
+        try {
+            $sql = "UPDATE USUARIOS SET image = :image"
+                    . " WHERE id=:id ";
+
+            $smt = $db->prepare($sql);
+            
+            $smt->bindValue(":id", $usuario->getId(), PDO::PARAM_INT);
+            $smt->bindValue(":image", $usuario->getImage(), PDO::PARAM_STR);
+            
+            $registro = $smt->execute();
+            if ($registro) {
+                return $usuario->getId();
+            } else {
+                $e = new PDOException();
+                throw new Exception($e->getMessage());
+            }
+        } catch (PDOException $e) {
+            return  $e->getMessage();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+        return false;
+    }
+
 }
 
 

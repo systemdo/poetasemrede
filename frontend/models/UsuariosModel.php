@@ -79,7 +79,8 @@ Class UsuariosModel extends UsuariosDAO {
 
         return $this->nascimento;
     }
-
+    
+    
     public function setDescricao($descricao) {
 
         $this->descricao = $descricao;
@@ -145,7 +146,19 @@ Class UsuariosModel extends UsuariosDAO {
     function getAmigos() {
         return $this->amigos;
     }
-
+    
+    function getDiaNascimento(){
+        $retorno = explode($this->nascimento, '-');
+        return $retorno[3];          
+    }
+    function getMesNascimento(){
+        $retorno = explode($this->nascimento, '-');
+        return $retorno[2];          
+    }
+    function getAnoNascimento(){
+        $retorno = explode($this->nascimento, '-');
+        return $retorno[1];          
+    }
 }
 
 ?>

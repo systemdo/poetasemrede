@@ -1,6 +1,11 @@
+#https://docs.phalconphp.com/pt/latest/reference/apache.html
 RewriteEngine on
+RewriteCond $1 !^(index\.php|frontend/web)
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d 
+#RewriteCond $0/admin/$1 !^(index.php/backend/web) [L,PT]
+#RewriteRule ^admin(/.+)?$ index.php/backend/web/$1 [L,PT]
+RewriteRule ^(.*)$ index.php/$1 [L]
 
-RewriteRule . index.php
+#RewriteRule . /index.php [L]
+    
+

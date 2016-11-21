@@ -51,7 +51,7 @@
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>-->
 
-                     
+
 
                         <ul class="nav navbar-nav navbar-right nav-principal">
                             <li><button title="Escrever uma nova Poesia" id="btn-escrever-poesia-header" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button></li>
@@ -77,69 +77,81 @@
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/profile' ?>">Profile</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/poesias' ?>">Poesias</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/amigos' ?>">Amigos</a></li>
-                    <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/editar' ?>">Editar Perfil</a></li>
-                    <!--<li role="presentation"><a href="#">Grupos</a></li>-->
-                </ul>
-                <button title="Escrever uma nova Poesia" id="btn-escrever-poesia" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Configurações<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/editar' ?>">Editar Perfil</a></li>
+                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/imagem' ?>">Imagem de Portada</a></li>
+                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/imagemPerfil/' ?>">Imagem de Perfil</a></li>
+                        </ul>
+                    </div>    
             </div>
 
-            <div class="grid-content">
-                <div class="row">
-                    <?php echo $content ?>
-                </div>
-            </div>    
-        </div><!--row-->
-    </div>    
-    <!-- /.container -->
-
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">        
-            <p>Copyright &copy; Lucas Silvério Marques <?php echo date('Y'); ?></p>
+            <!--<li role="presentation"><a href="#">Grupos</a></li>-->
+            </ul>
+            <button title="Escrever uma nova Poesia" id="btn-escrever-poesia" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button>
         </div>
-    </footer>
 
-    <div class="modal fade modal-poesia-content" id="modal-poesia-content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modal-titulo-poesia"></h4>
-                </div>
-                <div class="modal-body">
+        <div class="grid-content">
+            <div class="row">
+                <?php echo $content ?>
+            </div>
+        </div>    
+    </div><!--row-->
+</div>    
+<!-- /.container -->
 
-                </div>
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">        
+        <p>Copyright &copy; Lucas Silvério Marques <?php echo date('Y'); ?></p>
+    </div>
+</footer>
+
+<div class="modal fade modal-poesia-content" id="modal-poesia-content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-titulo-poesia"></h4>
+            </div>
+            <div class="modal-body">
+
             </div>
         </div>
     </div>
+</div>
 
 
-    <!-- jQuery -->
-    <script src="<?php echo $this->getPathJS() ?>/jquery.js"></script>
+<!-- jQuery -->
+<script src="<?php echo $this->getPathJS() ?>/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo $this->getPathJS() ?>/bootstrap.min.js"></script>
-    <script src="<?php echo $this->getPathJS() ?>/poetas.js"></script>
-    <script src="<?php echo $this->getPathJS() ?>/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo $this->getPathJS() ?>/poesias/poesias.js"></script>
-     <script src="<?php echo $this->getPathJS() ?>/likes/likes.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="<?php echo $this->getPathJS() ?>/bootstrap.min.js"></script>
+<script src="<?php echo $this->getPathJS() ?>/poetas.js"></script>
+<script src="<?php echo $this->getPathJS() ?>/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->getPathJS() ?>/poesias/poesias.js"></script>
+<script src="<?php echo $this->getPathJS() ?>/likes/likes.js"></script>
 
-    <script src="<?php echo $this->getPathJS() ?>/comentarios/comentarios.js"></script>
+<script src="<?php echo $this->getPathJS() ?>/comentarios/comentarios.js"></script>
 
-    <?php $this->getJs() ?>
+<?php $this->getJs() ?>
 
-    <script type="text/javascript">
-        likes.eventLike();
-        likes.eventTakeLike();
-        likes.eventLikeComentarios();
-        likes.eventTakeLikeComentarios();
-        comentarios.eventComent();
-        //comentarios.eventUpdateComent();
-        comentarios.eventDeleteComent();
+<script type="text/javascript">
+    likes.eventLike();
+    likes.eventTakeLike();
+    likes.eventLikeComentarios();
+    likes.eventTakeLikeComentarios();
+    comentarios.eventComent();
+    //comentarios.eventUpdateComent();
+    comentarios.eventDeleteComent();
 
-    </script>
+</script>
 
 
 

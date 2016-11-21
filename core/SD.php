@@ -155,7 +155,9 @@ class SD {
              require_once self::getPathModels().'/'.$class;
         }
     }
-    
+    /**
+     *
+     */
     static function getPathApp(){
         
         $backend = self::$Config->hasBackendUrl();
@@ -226,8 +228,8 @@ class SD {
         $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? $_SERVER['HTTP_X_REQUESTED_WITH'] : null;
         return (strtolower($isAjax) === 'xmlhttprequest');
     }
-    /*
-     * @function 
+    /**
+     * @param void $ Description 
      * ret
      */
     static function setEnvironment(){
@@ -245,11 +247,30 @@ class SD {
         header("Location:$url");
     }
     
-    
+    /**
+     * @static method
+     * @return String get Url' upload path app inside web' dir
+     */
     static public function getUrlUpload($dir = false){
        if($dir){
            return self::getAppUrlPublicFiles().'/'.$dir;
        } 
        return self::getAppUrlPublicFiles().'/uploads';
     }
+    
+    /**
+     * @static method
+     * @return String get dir's upload path app inside web' dir
+     */
+    static public function getPathlUpload($dir = false){
+       if($dir){
+           self::getPathApp().'web/uploads/'.$dir;
+       } 
+       return self::getPathApp().'/web/uploads';
+    }
+    
+     static function getPathLibraries(){
+       return self::getBasePath().'/libraries';
+    }
+   
 }
