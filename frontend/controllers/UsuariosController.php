@@ -192,7 +192,8 @@ class UsuariosController extends Controller {
 
         $usuarioSession = Login::getUserSession();
         $usuario = $usuarioDAO->consultarUsuario($usuarioSession->getId());
-
+        
+        
         $mensagem = $this->getSessionBag();
 
         $this->view('imagem_perfil', array(
@@ -204,6 +205,9 @@ class UsuariosController extends Controller {
     function inserirImagemPerfil() {
         $this->loadLibraries('UserImage');
         $this->loadLibraries('WideImage', 'wideimage/lib');
+        
+        var_dump($_FILES);
+        
     }
 
 }

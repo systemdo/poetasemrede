@@ -15,6 +15,8 @@ class UserImage{
     
     protected $url_image_user;
     
+    protected $extensions = array('png', 'jpg' ,'jpeg');
+    
     function __construct($idUser) {
         $this->idUser = $idUser;
         $this->url_image_user = SD::getUrlUpload().'/imagens_'.$this->idUser;
@@ -26,6 +28,9 @@ class UserImage{
     }
     function getPathUserImage(){
         return $this->path_user;
+    }
+    function saveImage($destination){
+        move_uploaded_file($filename, $destination);
     }
    
     
