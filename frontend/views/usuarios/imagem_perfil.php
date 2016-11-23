@@ -13,7 +13,7 @@ if(!empty($mensagem)){
         <img width="100%" class="img-portada" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
     </div> 
     <div class="col-md-8">
-        <form action="inserirImagemPerfil" enctype="multipart/form-data" method="post" name="cadastra_usuario" id="form_imgem_perfil">
+        <form action="inserirImagemPerfil" enctype="multipart/form-data" method="post" name="imagem_usuario" id="form_imgem_perfil">
         <input type="hidden" name="id" value="<?php echo $usuario->getId()?>">
          <div class="col-md-6 form-cadastro">
             <label for="exampleInputFile">Coloque uma imagem que mais pareça com você</label>

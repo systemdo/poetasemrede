@@ -60,11 +60,11 @@ class ProfileController extends Controller {
             
         }else{
             $souEu = true;
-            $infoPoeta = $usuarioDao->consultarUsuario($usuario->getId());
-            $poeta->setId($usuario->getId());
-            $poeta->setNome($infoPoeta->nome);
-            $poeta->setSobrenome($infoPoeta->sobrenome);
-            $poeta->setPseudonimo($infoPoeta->pseudonimo);
+            $poeta = $usuarioDao->consultarUsuario($usuario->getId());
+            //$poeta->setId($usuario->getId());
+            //$poeta->setNome($infoPoeta->nome);
+            //$poeta->setSobrenome($infoPoeta->sobrenome);
+            //$poeta->setPseudonimo($infoPoeta->pseudonimo);
             $poeta->setPoesias($poesiaDAO->obterPoesiasPorUsuario($usuario->getId()));
             $poeta->setAmigos($relacionamentosDAO->obterAmigosPorUsuario($usuario->getId()));
         }
