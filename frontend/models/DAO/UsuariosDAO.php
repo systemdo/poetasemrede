@@ -11,14 +11,15 @@ Class UsuariosDAO extends Model{
       $query = "SELECT * FROM USUARIOS WHERE id=$idUsuario";
       $result = $this->consultOne($query);
       $usuario = new UsuariosModel();
-      $usuario->setId($result->id);
-      $usuario->setNome($result->nome);
-      $usuario->setSobrenome($result->sobrenome);
-      $usuario->setPseudonimo($result->pseudonimo);
-      $usuario->getEmail($result->id);
-      $usuario->setImagem($result->imagem);
-      $usuario->setNascimento($result->nascimento);
-     
+      if($result){
+        $usuario->setId($result->id);
+        $usuario->setNome($result->nome);
+        $usuario->setSobrenome($result->sobrenome);
+        $usuario->setPseudonimo($result->pseudonimo);
+        $usuario->getEmail($result->id);
+        $usuario->setImagem($result->imagem);
+        $usuario->setNascimento($result->nascimento);
+      }
       return $usuario;
   }
   

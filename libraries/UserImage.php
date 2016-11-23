@@ -54,7 +54,8 @@ class UserImage {
     }
 
     function setTypeImage($typeImage) {
-        $this->typeImage = $typeImage;
+        $type = explode("/", $typeImage);
+        $this->typeImage = $type[1];
     }
 
     function setSizeImage($sizeImage) {
@@ -85,13 +86,12 @@ class UserImage {
         if (!$destination) {
             $destination =  $this->getPathImgTpmUser();
         }
-        echo $destination;
         try {
             if (!empty($this->tmpImage)) {
-                if(!dirname($destination)){
+                if(!is_dir($destination)){
                     mkdir(dirname($destination));
                 }
-                return move_uploaded_file($this->tmpImage, $destination);
+                return move_uploaded_file($this->tmpImage, $destination.'/'.$this->getNameImgApp());
             }
         } catch (Exception $e) {
             return $e->getMessage();
@@ -106,10 +106,10 @@ class UserImage {
     function uploadImageThumb() {
         $result = $this->saveImage($this->getPathImgTpmApp());
         if ($result) {
-            $wideImg = WideImage::load($this->getPathImgTpmUser());
+            $wideImg = WideImage::load($this->getPathImgTpmUser().'/'.$this->getNameImgApp());
             $resizeResult = $wideImg->resize($this->widthThumbImg, $this->heightThumbImg);
             if ($resizeResult) {
-                $move = move_uploaded_file($this->getPathImgTpmUser(), $this->getPathThumbsUserImage());
+                $move = move_uploaded_file($this->getPathImgTpmUser(), $this->getPathThumbsUserImage().'/'.$this->getNameImgApp());
                 if ($move) {
                     //unlink();
                 }
@@ -120,6 +120,18 @@ class UserImage {
 
     function getPathImgTpmUser() {
         return $this->getPathImgTpmApp() . "/thumb_img_" . $this->idUser;
+    }
+    
+    function checkExtention(){
+         
+        if(in_array($this->typeImage, $this->extensions)){
+            return true;
+        }
+        return false;
+    }
+    
+    function getNameImgApp(){
+        return "poeta_thumb.".$this->typeImage;
     }
 
 }
