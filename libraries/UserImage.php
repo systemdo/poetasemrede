@@ -89,8 +89,9 @@ class UserImage {
         try {
             if (!empty($this->tmpImage)) {
                 if(!is_dir($destination)){
-                    mkdir(dirname($destination));
+                    mkdir($destination);
                 }
+                //save in the temporary dir 
                 return move_uploaded_file($this->tmpImage, $destination.'/'.$this->getNameImgApp());
             }
         } catch (Exception $e) {
@@ -106,24 +107,38 @@ class UserImage {
     function uploadImageThumb() {
         $result = $this->saveImage($this->getPathImgTpmApp());
         if ($result) {
-            $wideImg = WideImage::load($this->getPathImgTpmUser().'/'.$this->getNameImgApp());
-            $resizeResult = $wideImg->resize($this->widthThumbImg, $this->heightThumbImg);
+            $resizeResult = $this->resizeImg();
             if ($resizeResult) {
-                $move = move_uploaded_file($this->getPathImgTpmUser(), $this->getPathThumbsUserImage().'/'.$this->getNameImgApp());
-                if ($move) {
-                    //unlink();
+                var_dump(file_exists($this->getPathImgTpmApp().'/'.$this->getNameImgApp()));
+                echo $this->getPathImgTpmApp().'/'.$this->getNameImgApp();
+                echo $this->getPathUserImage().'/'.$this->getNameImgApp();
+                $move = copy($this->getPathImgTpmApp().'/'.$this->getNameImgApp(), $this->getPathUserImage().'/'.$this->getNameImgApp());
+                var_dump($move);
+                $this->widthThumbImg = 36;
+                $this->heightThumbImg = 36;
+                $this->resizeImg();
+                
+                if(!is_dir($this->getPathThumb36x36ImgUser())){
+                    mkdir($this->getPathThumb36x36ImgUser());
                 }
+                copy($this->getPathImgTpmApp().'/'.$this->getNameImgApp(), $this->getPathThumb36x36ImgUser().'/'.$this->getNameImgApp());
+                //if ($move) {
+                    //unlink($this->getPathImgTpmApp());
+                //}
             }
         }
         return false;
     }
 
-    function getPathImgTpmUser() {
-        return $this->getPathImgTpmApp() . "/thumb_img_" . $this->idUser;
+    function getPathThumbImgUser() {
+        return $this->getPathUserImage() . "/thumbs";
+    }
+    
+    function getPathThumb36x36ImgUser() {
+        return $this->getPathThumbImgUser() . "/thumb36x36";
     }
     
     function checkExtention(){
-         
         if(in_array($this->typeImage, $this->extensions)){
             return true;
         }
@@ -133,6 +148,20 @@ class UserImage {
     function getNameImgApp(){
         return "poeta_thumb.".$this->typeImage;
     }
+    
+    function resizeImg(){
+        $wideImg = WideImage::load($this->getPathImgTpmApp().'/'.$this->getNameImgApp());
+        return $resizeResult = $wideImg->resize($this->widthThumbImg, $this->heightThumbImg);
+    }
+    
+    function changeDirImg($path = false){
+        if($path){
+            
+        } 
+      
+    }
+    
+    
 
 }
 
