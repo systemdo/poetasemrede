@@ -193,7 +193,7 @@ class UsuariosController extends Controller {
         $usuarioSession = Login::getUserSession();
         $usuario = $usuarioDAO->consultarUsuario($usuarioSession->getId());
         
-        if(isset($_FILES)){
+        if(isset($_FILES['image_perfil'])){
             $this->inserirImagemPerfil();
         }
         
@@ -208,18 +208,26 @@ class UsuariosController extends Controller {
     function inserirImagemPerfil() {
         $this->loadLibraries('UserImage');
         $this->loadLibraries('WideImage', 'wideimage/lib');
-        var_dump($_FILES);
         $files = $_FILES['image_perfil'];
+
         $upload = new UserImage(Login::getUserSession()->getId());
-        
+
         $upload->setNameImage($files['name']);
         $upload->setTypeImage($files['type']);
         $upload->setSizeImage($files['size']);
         $upload->setTmpImage($files['tmp_name']);
-        $upload->uploadImageThumb();
         
+        $resposta = $upload->uploadImageThumb();
+        if($resposta){
+            $mensagem = "Imagem Inserida";
+        }else{
+             $mensagem = "Ocorreu um Erro ao Inserir a Imagem";
+        }
+        $resultado['imagem']['resultado'] = $resposta;
+        $resultado['imagem']['mensagem'] = $mensagem;
         
-
+        $this->setSessionBag($resultado);
+        SD::redirect('usuarios/imagemPerfil');
         
     }
 

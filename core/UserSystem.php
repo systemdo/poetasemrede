@@ -41,6 +41,15 @@ class UserSystem{
     static function user(){
         return Login::getUserSession();
     }
+    
+    public static function getPathThumbImageUser(){
+        ///uploads/imgteste.jpg
+        $image =  SD::getUrlUpload(). '/thumbs/' . $this->getNameImgApp();
+        if(file_exists($image)){
+            return $image; 
+        }
+        return  SD::getUrlUpload()."/imgteste.jpg" ;
+    }
 }
 
 ?>
