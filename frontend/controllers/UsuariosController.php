@@ -185,7 +185,7 @@ class UsuariosController extends Controller {
     }
 
     function imagemPerfil() {
-        
+        //Login::logout();
         $this->loadModels('UsuariosDAO', 'DAO');
         $this->loadModels("UsuariosModel");
         $usuarioDAO = new UsuariosDAO();
@@ -196,6 +196,10 @@ class UsuariosController extends Controller {
         if(isset($_FILES['image_perfil'])){
             $this->inserirImagemPerfil();
         }
+        if(isset($_FILES['image_portada'])){
+            $this->inserirImagemPortada();
+        }
+        
         
         $mensagem = $this->getSessionBag();
 
@@ -218,6 +222,55 @@ class UsuariosController extends Controller {
         $upload->setTmpImage($files['tmp_name']);
         
         $resposta = $upload->uploadImageThumb();
+        if($resposta){
+            $mensagem = "Imagem Inserida";
+        }else{
+             $mensagem = "Ocorreu um Erro ao Inserir a Imagem";
+        }
+        $resultado['imagem']['resultado'] = $resposta;
+        $resultado['imagem']['mensagem'] = $mensagem;
+        
+        $this->setSessionBag($resultado);
+        SD::redirect('usuarios/imagemPerfil');
+        
+    }
+    
+    function imagemPortada() {
+        //Login::logout();
+        $this->loadModels('UsuariosDAO', 'DAO');
+        $this->loadModels("UsuariosModel");
+        $usuarioDAO = new UsuariosDAO();
+
+        $usuarioSession = Login::getUserSession();
+        $usuario = $usuarioDAO->consultarUsuario($usuarioSession->getId());
+        
+        
+        if(isset($_FILES['image_portada'])){
+            $this->inserirImagemPortada();
+        }
+        
+        
+        $mensagem = $this->getSessionBag();
+
+        $this->view('imagem_portada', array(
+            'usuario' => $usuario,
+            'mensagem' => $mensagem,
+        ));
+    }
+    
+    function inserirImagemPortada() {
+        $this->loadLibraries('UserImage');
+        $this->loadLibraries('WideImage', 'wideimage/lib');
+        $files = $_FILES['image_portada'];
+
+        $upload = new UserImage(Login::getUserSession()->getId());
+
+        $upload->setNameImage($files['name']);
+        $upload->setTypeImage($files['type']);
+        $upload->setSizeImage($files['size']);
+        $upload->setTmpImage($files['tmp_name']);
+        
+        $resposta = $upload->saveImage();
         if($resposta){
             $mensagem = "Imagem Inserida";
         }else{

@@ -145,7 +145,7 @@ class UserImage {
                 return true;
             }
         }else{
-            throw new Exception("ocorreu um erroo");
+            throw new Exception("ocorreu um erro");
         }
         return false;
     }
