@@ -77,6 +77,10 @@ class UserImage {
     function getPathUserImage() {
         return $this->path_user;
     }
+    protected function getPathImgTpmUser(){
+        return $this->getPathUserImage.'/tpm';
+    }
+    
 
     function saveImage($destination = false) {
         if (!$destination) {

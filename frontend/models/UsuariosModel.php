@@ -159,6 +159,19 @@ Class UsuariosModel extends UsuariosDAO {
         $retorno = explode($this->nascimento, '-');
         return $retorno[1];          
     }
+    
+    function setPathThumbImageUser() {
+        $image = SD::getUrlUpload(). 'imagens_'.$this->id.'/thumbs/poeta_thumb.jpeg';
+        if (!file_exists($image)) {
+            $image = SD::getUrlUpload()."/imgteste.jpg";
+        } 
+        $this->urlThumImg = $image;
+    }
+    
+    function getPathThumbImageUser(){
+        return $this->urlThumImg;
+    }
+
 }
 
 ?>
