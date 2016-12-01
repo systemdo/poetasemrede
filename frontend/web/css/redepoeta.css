@@ -8,7 +8,10 @@ body {
     padding-top: 60px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     padding-bootom: 60px;
 }
-
+span.glyphicon{
+    cursor:pointer;
+    cursor: hand;
+}
 .hero-spacer {
     margin-top: 50px;
 }

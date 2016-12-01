@@ -23,12 +23,25 @@ Class RelacionamentosDAO extends Model {
                 . " AND (nome like '%" . $nome . "%' OR "
                 . " pseudonimo = '%" . $nome . "%' )";
                 if($status){
-                    $query.= " r.status =  $status";        
+                    //$query.= " r.status =  $status";        
                 }
                 $query.= " Order by nome ASC";
       
+        die($query);
+          $collection = array();
         //die($query);
-        return $this->consultAll($query);
+        $amigos = $this->consultAll($query);
+        if (!empty($amigos)) {
+            foreach ($amigos as $amigo) {
+                $amigos = new UsuariosModel();
+                $amigos->setId($amigo->idRelacionamento);
+                $amigos->setNome($amigo->nome);
+                $amigos->setSobrenome($amigo->sobrenome);
+                $amigos->setPseudonimo($amigo->pseudonimo);
+                array_push($collection, $amigos);
+            }
+        }        
+        return $amigos;
     }
     function obterAmigosPorUsuarioPendentes($idUsuario) {
         $query = "SELECT u.id as idUsuario, "
@@ -78,10 +91,12 @@ Class RelacionamentosDAO extends Model {
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
                 . " OR r.idConvidado = u.id "
-                . " WHERE r.idConvidador = $idUsuario or r.idConvidado= $idUsuario"
-                . " r.status = StatusModel::STATUS_CONVITE_ACEITO "
+                . " WHERE u.id not in($idUsuario)"
+                . " AND (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario)"
+                . " AND r.status =". StatusModel::STATUS_CONVITE_ACEITO
                 . " Order by dataCriacao DESC ";
         $collection = array();
+        //die($query);
         $amigos = $this->consultAll($query);
         if (!empty($amigos)) {
             foreach ($amigos as $amigo) {

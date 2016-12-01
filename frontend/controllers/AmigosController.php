@@ -16,22 +16,25 @@ class AmigosController extends Controller {
     function index() {
         $this->loadModels('RelacionamentosDAO', 'DAO');
         $this->loadModels("RelacionamentosModel");
-        $relacionamento = new RelacionamentosModel();
+        $this->loadModels("StatusModel");
+        $this->loadModels("UsuariosModel");
+        //$relacionamento = new RelacionamentosModel();
         $relacionamentoDAO = new RelacionamentosDAO();
 
         $usuario = Login::getUserSession();
         $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuario($usuario->getId());
-
+        //SD::printApp($relacionamentos);
         $this->view->setJs(array("poetas.js", "ckeditor/ckeditor.js", "amigos/amigos.js"));
         $this->view('index', array(
             'relacionamentos' => $relacionamentos,
         ));
     }
 
-    function verAmigosHtml($nome) {
-        $this->loadModels('RelacionamentosDAO', 'DAO');
+    function verAmigosHtml($id) {
+       $this->loadModels('RelacionamentosDAO', 'DAO');
         $this->loadModels("RelacionamentosModel");
-        $relacionamento = new RelacionamentosModel();
+        $this->loadModels("StatusModel");
+        $this->loadModels("UsuariosModel");
         $relacionamentoDAO = new RelacionamentosDAO();
         
         $this->view->setLayout(false);
@@ -41,6 +44,7 @@ class AmigosController extends Controller {
         if ($id) {
             $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuario($id);
         }
+        SD::printApp($relacionamentos);
         $this->view->viewAjax('amigos/verAmigos', array(
             'relacionamentos' => $relacionamentos,
         ));
@@ -49,6 +53,7 @@ class AmigosController extends Controller {
         $this->loadModels('RelacionamentosDAO', 'DAO');
         $this->loadModels("RelacionamentosModel");
         $this->loadModels("StatusModel");
+          $this->loadModels("UsuariosModel");
         $relacionamento = new RelacionamentosModel();
         $relacionamentoDAO = new RelacionamentosDAO();
         
@@ -72,6 +77,7 @@ class AmigosController extends Controller {
         $this->loadModels('RelacionamentosDAO', 'DAO');
         $this->loadModels("RelacionamentosModel");
         $this->loadModels("StatusModel");
+          $this->loadModels("UsuariosModel");
         $relacionamento = new RelacionamentosModel();
         $relacionamentoDAO = new RelacionamentosDAO();
         

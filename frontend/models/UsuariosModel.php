@@ -1,6 +1,6 @@
 <?php
 
-Class UsuariosModel extends UsuariosDAO {
+Class UsuariosModel extends Model {
 
     private $id;
     private $nome;

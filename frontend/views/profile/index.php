@@ -55,10 +55,15 @@
                     </a>    
                 </div>
             <?php }
-        } else {
+        } else{
+            if($souEu){
             ?>
             <a href="<?php echo SD::getAppUrl() . '/amigos' ?>" class="btn btn-primary">Procurar Amigos</a>
-        <?php } ?>
+        <?php 
+            
+            } 
+        
+            } ?>
 
     </div>        
 </div>

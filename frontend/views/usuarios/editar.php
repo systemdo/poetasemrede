@@ -26,16 +26,31 @@ if(!empty($mensagem)){
         <!-- <label for="exampleInputEmail1">Principio de Sua existência</label> -->
         <div class="row">
             <div class="col-md-3">
-                <label for="exampleInputEmail1">Dia</label>    
-                <select required name="nascimento-dia" id="" class="form-control input-lg"><option>21</option></select>
+                <label for="dia">Dia</label>    
+                <select required name="nascimento-dia" id="dia" class="form-control input-lg">
+                    <?php foreach(DateSystem::getArrayDays() as $day){?>
+                    <option ><?php echo $day ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+          
+             <div class="col-md-3">
+                <label for="exampleInputEmail1">Mês</label>    
+                <select required name="nascimento-mes" id="" class="form-control input-lg">
+                    <?php foreach(DateSystem::getArrayMonth() as $mes){?>
+                    <option ><?php echo  ($mes< 10)? "0".$mes: $mes?></option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="col-md-3">
-                <label for="exampleInputEmail1">Mês</label>    
-                <select name="nascimento-mes" class="form-control input-lg"><option>02</option></select>
-            </div>
-            <div class="col-md-6">
                 <label for="exampleInputEmail1">Ano</label>    
-                <select name="nascimento-ano" class="form-control input-lg"><option>1986</option></select>
+                <select name="nascimento-ano" class="form-control input-lg">
+                    <?php 
+                    $years = range(1900,1998);
+                    foreach($years as $year){?>
+                        <option ><?php echo $year?></option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ class UserImage {
     protected $idUser;
     protected $path_user;
     protected $url_image_user;
-    protected $extensions = array('png', 'jpg', 'jpeg');
+    protected $extensions = array('jpg', 'jpeg');
     protected $nameImage;
     protected $typeImage;
     protected $sizeImage;
@@ -26,7 +26,7 @@ class UserImage {
     function __construct($idUser) {
         $this->idUser = $idUser;
         $this->url_image_user = SD::getUrlUpload() . '/imagens_' . $this->idUser;
-        $this->path_user = SD::getPathlUpload() . '/imagens_' . $this->idUser;
+        $this->path_user = SD::getPathUpload() . '/imagens_' . $this->idUser;
     }
 
     function getNameImage() {

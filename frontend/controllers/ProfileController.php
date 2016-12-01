@@ -8,7 +8,7 @@ class ProfileController extends Controller {
 
     }
 
-    function index($nome = false, $id = false){
+    function index($id = false){
         $this->loadModels('PoesiasDAO', 'DAO');
         $this->loadModels('ComentariosDAO', 'DAO');
         $this->loadModels('RelacionamentosDAO', 'DAO');
@@ -35,12 +35,12 @@ class ProfileController extends Controller {
         if($id){
             $infoPoeta = $usuarioDao->consultarUsuario($id);
             $poeta->setId($id);
-            $poeta->setNome($infoPoeta->nome);
-            $poeta->setSobrenome($infoPoeta->sobrenome);
-            $poeta->setPseudonimo($infoPoeta->pseudonimo);
+            //$poeta->setNome($infoPoeta->nome);
+            //$poeta->setSobrenome($infoPoeta->sobrenome);
+            //$poeta->setPseudonimo($infoPoeta->pseudonimo);
             $poeta->setPoesias($poesiaDAO->obterPoesiasPorUsuario($id));
             $poeta->setAmigos($relacionamentosDAO->obterAmigosPorUsuario($id));
-           
+        
             //verificar se existe amizade entre o usario visitante e o usuario visitado
             $relacionamento = $relacionamentosDAO->verificarAmizadeVisitante($id , $usuario);
             
@@ -83,8 +83,8 @@ class ProfileController extends Controller {
         ));
     }
     
-    function verPerfil($nome= false, $id = false){
-        $this->index($nome, $id);
+    function verPerfil($id = false){
+        $this->index($id);
     }
 		
 }

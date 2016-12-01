@@ -29,7 +29,8 @@ class LoginController extends Controller {
     }
     
     function logout(){
-        
+        Login::logout();
+        Login::loginRedirect('login');
     }
 		
 }

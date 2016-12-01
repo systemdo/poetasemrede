@@ -56,9 +56,10 @@
                         <ul class="nav navbar-nav navbar-right nav-principal">
                             <li><button title="Escrever uma nova Poesia" id="btn-escrever-poesia-header" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button></li>
                             <li><a href="#"> <span class="glyphicon glyphicon-cloud icons-poesia icon-header-notificacao" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
-                            <li>
-                                <img class="img-circle" src="<?php echo SD::getUrlUpload() ?>/imgteste.jpg" alt="">
-                            </li>
+<!--                            <li>
+                                <img class="img-circle"  src="<?php //echo SD::getUrlUpload() ?>/imgteste.jpg" alt="">
+                            </li>-->
+                            <li role="presentation"><a class="btn btn-default" href="<?php echo SD::getAppUrl() . '/login/logout' ?>">Sair</a></li>
 
                         </ul>
 
@@ -77,22 +78,24 @@
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/profile' ?>">Profile</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/poesias' ?>">Poesias</a></li>
                     <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/amigos' ?>">Amigos</a></li>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Configurações<span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/editar' ?>">Editar Perfil</a></li>
-                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/imagem' ?>">Imagem de Portada</a></li>
-                            <li role="presentation"><a href="<?php echo SD::getAppUrl() . '/usuarios/imagemPerfil/' ?>">Imagem de Perfil</a></li>
-                        </ul>
-                    </div>    
+                    <!--<li role="presentation"> <button title="Escrever uma nova Poesia" id="btn-escrever-poesia" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button></li>-->
+                    <li role="presentation">
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Configurações<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li role=""><a href="<?php echo SD::getAppUrl() . '/usuarios/editar' ?>">Editar Perfil</a></li>
+                                <li role=""><a href="<?php echo SD::getAppUrl() . '/usuarios/imagemPortada' ?>">Imagem de Portada</a></li>
+                                <li role=""><a href="<?php echo SD::getAppUrl() . '/usuarios/imagemPerfil/' ?>">Imagem de Perfil</a></li>
+                            </ul>
+                        </div>
+                    </li>
             </div>
 
             <!--<li role="presentation"><a href="#">Grupos</a></li>-->
             </ul>
-            <button title="Escrever uma nova Poesia" id="btn-escrever-poesia" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button>
+           
         </div>
 
         <div class="grid-content">
