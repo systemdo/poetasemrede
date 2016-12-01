@@ -10,7 +10,7 @@ if(!empty($mensagem)){
 ?>
     
     <div class="col-md-12">
-        <img width="100%" class="img-portada" src="<?php //echo SD::getUrlTumbImg()?>" >
+        <img width="100%" class="img-portada" src="<?php echo $usuario->getPathThumbImageUser()?>" >
     </div> 
     <div class="col-md-8">
         <form action="inserirImagemPortada" enctype="multipart/form-data" method="post" name="imagem_usuario" id="form_imgem_perfil">

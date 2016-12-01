@@ -22,8 +22,6 @@ class UserSystem {
                     $this->email = $result->email;
                     $this->name = $result->nome;
                     $this->id = $result->id;
-                    
-                    $this->setPathThumbImageUser();
                 }
             }
         } else {

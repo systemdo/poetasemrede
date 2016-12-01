@@ -15,9 +15,15 @@ Class UsuariosModel extends UsuariosDAO {
     private $pseudonimo;
     private $poesias;
     private $amigos;
+    
+    private $urlThumImg;
+    
+    private $urlPortadaImg;
+    
+    private $urlMiniThumbImg;
 
     function __construct() {
-        
+        $this->setPathThumbImageUser();
     }
 
     public function setId($id) {
@@ -161,15 +167,52 @@ Class UsuariosModel extends UsuariosDAO {
     }
     
     function setPathThumbImageUser() {
-        $image = SD::getUrlUpload(). 'imagens_'.$this->id.'/thumbs/poeta_thumb.jpeg';
-        if (!file_exists($image)) {
-            $image = SD::getUrlUpload()."/imgteste.jpg";
+        $image = SD::getPathUpload(). '/imagens_'.$this->id.'/thumbs/poeta_thumb.jpeg';
+        //echo $image;die();
+        //var_dump(!file_exists($image));
+        $f = file_exists($image);
+        if (!$f) {
+            // die('helo');
+           // $image = SD::getPathUpload(). '/imagens_'.$this->id.'/thumbs/poeta_thumb.jpg';
+            if(!file_exists($image)){
+               // $image = SD::getUrlUpload()."/imgteste.jpg";
+            }
+        }else{
+              $image = SD::getUrlUpload(). '/imagens_'.$this->id.'/thumbs/poeta_thumb.jpeg';
         } 
+        
         $this->urlThumImg = $image;
     }
     
     function getPathThumbImageUser(){
+        
         return $this->urlThumImg;
+    }
+    function setPathPortadaImageUser() {
+        $image = SD::getUrlUpload(). 'imagens_'.$this->id.'/poeta_thumb.jpeg';
+        //echo $image;
+        if (!file_exists($image)) {
+            $image = SD::getUrlUpload()."/imgteste.jpg";
+        } 
+        $this->urlPortadaImg = $image;
+    }
+    
+    function getPathPortadaImageUser(){
+        $this->setPathPortadaImageUser();
+        return $this->urlPortadaImg;
+    }
+    function setPathMiniThumbImageUser() {
+        $image = SD::getUrlUpload(). 'imagens_'.$this->id.'/thumbs/poeta_thumb.jpeg';
+        //echo $image;
+        if (!file_exists($image)) {
+            $image = SD::getUrlUpload()."/imgteste.jpg";
+        } 
+        $this->urlMiniThumbImg = $image;
+    }
+    
+    function getPathMiniThumbImageUser(){
+        $this->setPathMiniThumbImageUser();
+        return $this->urlMiniThumbImg;
     }
 
 }

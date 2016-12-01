@@ -248,7 +248,7 @@ class SD {
      * @static method
      * @return String get dir's upload path app inside web' dir
      */
-    static public function getPathlUpload($dir = false) {
+    static public function getPathUpload($dir = false) {
         if ($dir) {
             self::getPathApp() . 'web/uploads/' . $dir;
         }

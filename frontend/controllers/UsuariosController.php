@@ -14,7 +14,7 @@ class UsuariosController extends Controller {
     }
 
     function index() {
-        
+        $this->editar();
     }
 
     function editar() {
@@ -200,9 +200,8 @@ class UsuariosController extends Controller {
             $this->inserirImagemPortada();
         }
         
-        
         $mensagem = $this->getSessionBag();
-
+        //var_dump($usuario);
         $this->view('imagem_perfil', array(
             'usuario' => $usuario,
             'mensagem' => $mensagem,
