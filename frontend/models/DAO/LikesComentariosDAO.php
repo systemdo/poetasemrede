@@ -8,7 +8,8 @@ Class LikesComentariosDAO extends Model {
     }
 
     function obterQuantidadeLikesPorComentarios($idComentario) {
-        $query = "SELECT count(*) as qtd FROM LIKES_COMENTARIOS where idComentario=$idComentario";$resultado = $this->consult($query);
+        $query = "SELECT count(*) as qtd FROM LIKES_COMENTARIOS where idComentario=$idComentario";
+        $resultado = $this->consult($query);
         $qtd = 0 ;
         $resultado = $this->consultOne($query);
         if($resultado){
@@ -17,10 +18,22 @@ Class LikesComentariosDAO extends Model {
         
         return $qtd;
     }
+    
+     function obterUltimoLikeComentarioPorUsuario($idComentario, $idUsuario) {
+        $query = "SELECT max(id) as idLikeComentario FROM LIKES_COMENTARIOS where idUsuario=$idUsuario AND idComentario=$idComentario";
+        $result = $this->consultOne($query);
+        return $result;
+        
+    }
 
     function obterLikeComentariosPorUsuario($idComentario, $idUsuario) {
         $query = "SELECT * FROM LIKES_COMENTARIOS where idUsuario=$idUsuario AND idComentario=$idComentario";
-        return $this->consultOne($query);
+        //die($query);
+         $result = $this->consultOne($query);
+        if($result){
+           $result = $result->id;
+        }        
+        return $result;
     }
 
     function inserirLike(LikesComentariosModel $comentarios) {
@@ -58,6 +71,7 @@ Class LikesComentariosDAO extends Model {
         try {
             $sql = "DELETE FROM LIKES_COMENTARIOS WHERE id= $id";
             $smt = $db->prepare($sql);
+            //die($sql);
             return $registro = $smt->execute();
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();

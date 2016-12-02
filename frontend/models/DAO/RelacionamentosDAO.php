@@ -8,7 +8,6 @@ Class RelacionamentosDAO extends Model {
     }
 
     function obterAmigosPorUsuarioPorIndex($idUsuario, $nome ,$status = false) {
-        
          $query = "SELECT r.id, r.idConvidador, r.idConvidado "
                 . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
@@ -20,23 +19,9 @@ Class RelacionamentosDAO extends Model {
                 . " AND (nome like '%" . $nome . "%' OR "
                 . " pseudonimo = '%" . $nome . "%' )"
                 . " Order by u.nome ASC ";
+
         
-//        $query = "SELECT "
-//                . " r.id"
-//                . " r.status , idConvidador, idConvidado"
-//                . " FROM USUARIOS u "
-//                . " JOIN RELACIONAMENTOS r "
-//                . " on r.idConvidador=u.id "
-//                . " OR r.idConvidado = u.id "
-//                . " WHERE (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario) "
-//                . " AND  u.id <> $idUsuario"
-//                . " AND (nome like '%" . $nome . "%' OR "
-//                . " pseudonimo = '%" . $nome . "%' )";
-//                if($status){
-//                    $query.= " r.status =  $status";        
-//                }
-//                $query.= " Order by nome ASC";
-//      
+         
         $collection = array();
         $relacionamentos = $this->consultAll($query);
         $usuarioDAO = new UsuariosDAO();
@@ -67,7 +52,7 @@ Class RelacionamentosDAO extends Model {
     function obterAmigosPorUsuarioPendentes($idUsuario) {
          SD::loadModels('UsuariosDAO', 'DAO');
         $query = "SELECT "
-                . "r.id "
+                . "r.id,"
                 . "r.status ,idConvidador, idConvidado "
                 . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
@@ -102,7 +87,7 @@ Class RelacionamentosDAO extends Model {
                 array_push($collection, $amigo);
             }
         } 
-        
+        //SD::printApp($collection);
         return $collection;       
        
        

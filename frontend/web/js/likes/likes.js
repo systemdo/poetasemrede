@@ -38,17 +38,15 @@ likes = {
         });
     },
     eventLike: function () {
-        $('#panel-poesia').on('click', '.btn-do-like',
+        $('.panel-poesia').on('click', '.btn-do-like',
         function () {
             var idPoesia = $(this).attr('idPoesia');
-            alert(idPoesia);
             likes.insertLikes(idPoesia, $(this));
         });
     },
     eventTakeLike: function () {
-        $('#panel-poesia').on('click', '.btn-do-not-like',
+        $('.panel-poesia').on('click', '.btn-do-not-like',
         function () {
-            alert(URL);
             var idlikepoesia = $(this).attr('idlikepoesia');
             likes.deleteLikes(idlikepoesia, $(this));
         });
@@ -66,6 +64,9 @@ likes = {
                     console.debug(obj);
                     obj.removeClass('btn-do-like-comentario');
                     obj.addClass('btn-do-not-like-comentario');
+                    obj.removeClass('glyphicon-book');
+                    obj.addClass('glyphicon-ok-sign');
+                    obj.attr('idLikeComentario' , data.idlikepoesia);   
                 }
 
             }
@@ -82,21 +83,22 @@ likes = {
                 if (data.resposta) {
                     obj.removeClass('btn-do-not-like-comentario');
                     obj.addClass('btn-do-like-comentario');
+                    obj.removeClass('glyphicon-ok-sign');
+                    obj.addClass('glyphicon-book');
                 }
 
             }
         });
     },
     eventLikeComentarios: function () {
-        $('#panel-poesia').on('click', '.btn-do-like-comentario', function () {
+        $('.panel-poesia').on('click', '.btn-do-like-comentario', function () {
             var idComentario = $(this).attr('idComentario');
             likes.insertLikesComentarios(idComentario, $(this));
         });
     },
     eventTakeLikeComentarios: function () {
-        $('#panel-poesia').on('click','.btn-do-not-like-comentario' ,function () {
+        $('.panel-poesia').on('click','.btn-do-not-like-comentario' ,function () {
             var idComentario = $(this).attr('idComentario');
-            alert('a');
             likes.deleteLikesComentarios(idComentario, $(this));
         });
     }

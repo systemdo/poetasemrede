@@ -26,16 +26,10 @@ Class UsuariosDAO extends Model{
   function procurarUsuario($idUsuario, $nome){
       $query = "SELECT * "
               . " FROM USUARIOS u"
-               . " JOIN RELACIONAMENTOS r "
-                . " on r.idConvidador=u.id "
-                . " OR r.idConvidado = u.id "
               . " WHERE u.id <> $idUsuario "
-              . " AND r.idConvidador <> $idUsuario "
-              . " AND r.idConvidado <> $idUsuario "
               . " AND (nome like '%" . $nome . "%' OR "
               . " pseudonimo = '%" . $nome . "%' )"
-              . " Order by u.nome ASC LIMIT 0 ,10";
-        //die($query);
+              . " Order by u.nome ASC LIMIT 0,20";
       $collection = array();
       $results = $this->consultAll($query);
       
@@ -49,7 +43,7 @@ Class UsuariosDAO extends Model{
             $usuario->getEmail($result->id);
             $usuario->setImagem($result->imagem);
             $usuario->setNascimento($result->nascimento);
-            array_push($collection, $amigo);
+            array_push($collection, $usuario);
         }
       }
       return $collection;

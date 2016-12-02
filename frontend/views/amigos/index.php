@@ -1,3 +1,8 @@
+<style>
+    .grid-amigos, .grid-novos-amigos , #pendentes{
+        height: 800px;
+    }
+</style>
 <div class="col-md-10 col-sm-10">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -32,7 +37,8 @@
             </div>       
         </div>
         <div role="tabpanel" class="tab-pane fade" id="pendentes">
-            <?php $this->getSliceView('amigos/verSolicitacaoAmigos', array('relacionamentos' => $pendentes)); ?>
+         
+            <?php $this->getSliceView('amigos/verAmigosPendentes', array('relacionamentos' => $pendentes)); ?>
         </div>
     </div>
 </div>

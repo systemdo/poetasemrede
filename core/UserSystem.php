@@ -5,22 +5,25 @@ class UserSystem {
     protected $id;
     protected $name;
     protected $email;
+    protected $pseudonimo;
     protected $urlThumImg;
 
     public function __construct($email, $password) {
-        $query = "SELECT id, email, senha, nome
+        $query = "SELECT id, email, senha, nome, pseudonimo
                 FROM Usuarios
                 WHERE email = '$email'
                 AND senha = '$password'";
-        //die($query);
+   
         $con = DB::getStatement($query);
         $con->execute();
         $result = $con->fetch(PDO::FETCH_OBJ);
+     
         if ($result) {
             if ($result->email == $email) {
                 if ($result->senha == $password) {
                     $this->email = $result->email;
                     $this->name = $result->nome;
+                    $this->pseudonimo = $result->pseudonimo;
                     $this->id = $result->id;
                 }
             }
@@ -40,12 +43,12 @@ class UserSystem {
     static function getPathThumbImageUser() {
         $user = Login::getUserSession();
         $id = $user->getId();
-        $image = SD::getPathUpload(). '/imagens_'.$id.'/thumbs/poeta_thumb.jpeg?id='.rand(0, 20);
+        $image = SD::getPathUpload(). '/imagens_'.$id.'/thumbs/poeta_thumb.jpeg';
         //echo $image;
         if (!file_exists($image)) {
             $image = SD::getUrlUpload()."/imgteste.jpg";
         }else{
-            $image = SD::getUrlUpload(). '/imagens_'.$id.'/thumbs/poeta_thumb.jpeg';
+            $image = SD::getUrlUpload(). '/imagens_'.$id.'/thumbs/poeta_thumb.jpeg?id='.rand(0, 20);
         } 
         return $image;
     }
@@ -76,7 +79,10 @@ class UserSystem {
         return $image;
     }
     
-    
+    static function getPseudonimo() {
+        $user = Login::getUserSession();
+        return $user->pseudonimo;
+    }
 }
 
 ?>

@@ -14,7 +14,7 @@ amigos = {
     },
     enviarConvite:function(idConvidado){
         $.ajax({
-            url: '/amigos/enviarConvite',
+            url: URL+'/amigos/enviarConvite',
             method: "POST",
             data: { idConvidado : idConvidado },
             dataType: "json",
@@ -27,7 +27,7 @@ amigos = {
     },
     aceitarConvite:function(idRelacionamento){
         $.ajax({
-            url: '/amigos/aceitarConvite',
+            url: URL+'/amigos/aceitarConvite',
             method: "POST",
             data: { idRelacionamento : idRelacionamento },
             dataType: "json",

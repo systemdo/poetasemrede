@@ -177,7 +177,8 @@ class SD {
         $aProtocol = explode('/', $protocol);
         $protocol = strtolower($aProtocol[0]);
 
-        //SD::print_app($_SERVER);die("helo");
+        //SD::printApp($_SERVER);die("helo");
+        
         if ($host == 'localhost') {
             $uri = $_SERVER['REQUEST_URI'];
             if ($_SERVER['HTTP_HOST'] == 'localhost:82' or $_SERVER['HTTP_HOST'] == 'localhost') {
@@ -186,13 +187,19 @@ class SD {
             //var_dump(array_filter(explode('/', $uri)));
             $uri = array_values(array_filter(explode('/', $uri)));
             $host = $host . '/' . $uri[0];
+            //var_dump($protocol . '://' . $host);
+            //die($host);
+            return $protocol . '://' . $host;
+        }else{
+           return self::$app_url;
         }
+       //SD::printApp($host);die("helo");
 
-        return $protocol . '://' . $host;
     }
-
+    
     static function getAppUrl() {
-        return self::$app_url;
+        //echo self::getServerName();die();
+        return self::getServerName();
     }
 
     static function getAppUrlForPlace() {

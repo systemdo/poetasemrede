@@ -26,6 +26,8 @@ class PoesiasController extends Controller {
         $like = new LikesPoesiasDAO();
         $poesia = new PoesiasModel();
         $poesiaDAO = new PoesiasDAO();
+        
+        $comentariosLikeDao = new LikesComentariosDAO();
             
         $usuario = Login::getUserSession();
         
@@ -38,6 +40,7 @@ class PoesiasController extends Controller {
         $this->view('index',array(
             'poesias' => $poesias,
             'comentarios'=> $comentarios,
+            'comentariosLikeDao' => $comentariosLikeDao,
         ));
     }
     

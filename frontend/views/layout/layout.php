@@ -54,6 +54,7 @@
 
 
                         <ul class="nav navbar-nav navbar-right nav-principal">
+                            <li><span><?php echo UserSystem::getPseudonimo()?></span></li>
                             <li><button title="Escrever uma nova Poesia" id="btn-escrever-poesia-header" class="btn btn-default btn-escrever-poesia">Estou Inspirado</button></li>
                             <li><a href="#"> <span class="glyphicon glyphicon-cloud icons-poesia icon-header-notificacao" aria-hidden="true" title="Quem gostou de seus poemas?"></span></a></li>
 <!--                            <li>
@@ -130,7 +131,7 @@
     </div>
 </div>
 <script>
-    var URL = "<?php SD::getAppUrl()?>";
+    var URL = "<?php echo SD::getAppUrl()?>";
 </script>    
 
 <!-- jQuery -->

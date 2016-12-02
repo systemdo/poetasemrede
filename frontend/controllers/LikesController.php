@@ -83,7 +83,9 @@ class LikesController extends Controller {
                 $resposta = false;
                 $mensagem = 'not';
             }
-            $this->getJson(array('resposta' => $resposta, 'mensagem' => utf8_decode($mensagem)));
+            $idComentariopoesia = $comentariosDAO->obterUltimoLikeComentarioPorUsuario($_POST['idComentario'],$usuario->getId());
+      
+            $this->getJson(array('resposta' => $resposta, 'idLikeComentario'=> $idComentariopoesia->idLikeComentario ,'mensagem' => utf8_decode($mensagem)));
         } else {
             $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
         }
@@ -92,7 +94,7 @@ class LikesController extends Controller {
     function deleteLikeComentarios() {
         if (!empty($_POST['idComentario'])) {
             $this->loadModels('LikesComentariosDAO', 'DAO');
-            $likesDAO = new LikesPoesiasDAO();
+            $likesDAO = new LikesComentariosDAO();
 
             if ($likesDAO->deleteLike($_POST['idComentario'])) {
                 $resposta = true;

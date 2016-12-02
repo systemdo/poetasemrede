@@ -46,11 +46,10 @@ class AmigosController extends Controller {
         $this->view->setLayout(false);
 
         $usuario = Login::getUserSession();
-
         if ($id) {
             $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuario($id);
         }
-        SD::printApp($relacionamentos);
+       //s SD::printApp($relacionamentos);
         $this->view->viewAjax('amigos/verAmigos', array(
             'relacionamentos' => $relacionamentos,
         ));
@@ -58,7 +57,7 @@ class AmigosController extends Controller {
 
     function procurarAmigosHtml($nome, $status = false) {
         $this->loadModels('RelacionamentosDAO', 'DAO');
-        $this->loadModels("UsuarioslDAO", 'DAO');
+        $this->loadModels("UsuariosDAO", 'DAO');
         $this->loadModels("RelacionamentosModel");
         $this->loadModels("StatusModel");
         $this->loadModels("UsuariosModel");
@@ -69,7 +68,7 @@ class AmigosController extends Controller {
         $this->view->setLayout(false);
 
         $usuario = Login::getUserSession();
-
+  
         //if($status == StatusModel::STATUS_CONVITE_ACEITO){
         $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuarioPorIndex($usuario->getId(), $nome, $status);
         /* }else{
@@ -77,6 +76,8 @@ class AmigosController extends Controller {
           $relacionamentos = $relacionamentoDAO->procurarAmigosPorIndex($usuario->getId(),$nome);
 
           } */
+        
+       
         $this->view->viewAjax('amigos/verAmigos', array(
             'relacionamentos' => $relacionamentos,
         ));
@@ -94,10 +95,9 @@ class AmigosController extends Controller {
 
         $usuario = Login::getUserSession();
 
-
         $relacionamentos = $relacionamentoDAO->obterAmigosPorUsuarioPendentes($usuario->getId());
-        //SD::printApp($relacionamentos);
-        $this->view->viewAjax('amigos/verAmigos', array(
+        
+        $this->view->viewAjax('amigos/verAmigosPendentes', array(
             'relacionamentos' => $relacionamentos,
         ));
     }

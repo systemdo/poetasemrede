@@ -2,7 +2,6 @@
 //var_dump($relacionamentos);
 $usuario = Login::getUserSession();
 if (!empty($relacionamentos)) {
-    die("he");
     foreach ($relacionamentos as $key => $amigo) {
         ?>            
         <div class="col-md-3 col-sm-6">
@@ -15,7 +14,7 @@ if (!empty($relacionamentos)) {
                         <!--<a class="btn btn-primary" href="<?php //echo SD::getAppUrl() . '/profile/verProfile/' . $relacionamento->getNome() . '/' . $relacionamento->getId()  ?>">Perfil</a>-->
                         <a class="btn btn-primary" href="<?php echo SD::getAppUrl() . '/profile/verProfile/' . $amigo->getId() ?>">Perfil</a>
 
-                        <button class="btn btn-primary btn-convidar" idConvidado="<?php echo $relacionamento->getId() ?>">Convite</button>
+                        <button class="btn btn-primary btn-convidar" idConvidado="<?php echo $amigo->getId() ?>">Convite</button>
 
                     </p>
                 </div>

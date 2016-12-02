@@ -10,12 +10,12 @@ class ProfileController extends Controller {
 
     function index($id = false){
         
-select * from poesias p 
+/*select * from poesias p 
 Join usuarios u on u.id = p.idUsuario
 Join relacionamentos r 
 on (u.id = r.idConvidador or u.id = r.idConvidado)   
 where p.dataCriacao between '2016-09-20 07:16:06' and now()
-Order by p.dataCriacao DESC;
+Order by p.dataCriacao DESC;*/
         $this->loadModels('PoesiasDAO', 'DAO');
         $this->loadModels('ComentariosDAO', 'DAO');
         $this->loadModels('RelacionamentosDAO', 'DAO');
@@ -25,14 +25,15 @@ Order by p.dataCriacao DESC;
         $this->loadModels('PoesiasModel');
         $this->loadModels('StatusModel');
         $this->loadModels('RelacionamentosModel');
-        
+          $this->loadModels('LikesComentariosDAO', 'DAO');
         
         $poesiaDAO = new PoesiasDAO();
         $usuarioDao = new UsuariosDAO();    
         $usuario = Login::getUserSession();
         $comentarios = new ComentariosDAO(); 
         $relacionamentosDAO = new RelacionamentosDAO();
-        
+        $comentariosLikeDao = new LikesComentariosDAO();
+         
         $visitante = false;
         $souAmigo = false;
         $souEu = null;
@@ -43,10 +44,7 @@ Order by p.dataCriacao DESC;
         if($id){
             $infoPoeta = $usuarioDao->consultarUsuario($id);
             $poeta->setId($id);
-            //$poeta->setNome($infoPoeta->nome);
-            //$poeta->setSobrenome($infoPoeta->sobrenome);
-            //$poeta->setPseudonimo($infoPoeta->pseudonimo);
-            $poeta->setPoesias($poesiaDAO->obterPoesiasPorUsuario($id));
+             $poeta->setPoesias($poesiaDAO->obterPoesiasPorUsuario($id));
             $poeta->setAmigos($relacionamentosDAO->obterAmigosPorUsuario($id));
         
             //verificar se existe amizade entre o usario visitante e o usuario visitado
@@ -69,10 +67,6 @@ Order by p.dataCriacao DESC;
         }else{
             $souEu = true;
             $poeta = $usuarioDao->consultarUsuario($usuario->getId());
-            //$poeta->setId($usuario->getId());
-            //$poeta->setNome($infoPoeta->nome);
-            //$poeta->setSobrenome($infoPoeta->sobrenome);
-            //$poeta->setPseudonimo($infoPoeta->pseudonimo);
             $poeta->setPoesias($poesiaDAO->obterPoesiasPorUsuario($usuario->getId()));
             $poeta->setAmigos($relacionamentosDAO->obterAmigosPorUsuario($usuario->getId()));
         }
@@ -88,6 +82,8 @@ Order by p.dataCriacao DESC;
             'souAmigo' => $souAmigo,
             'souEu' => $souEu,
             'souUsuarioConvidador' => $souUsuarioConvidador,
+            'comentariosLikeDao' => $comentariosLikeDao,
+            'comentariosLikeDao' => $comentariosLikeDao,
         ));
     }
     

@@ -13,12 +13,13 @@
 </style>
 <div class="col-md-12 ">
     <div class="col-md-8">
+        
         <?php
         if($souEu){
-             $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios));
+             $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios, 'comentariosLikeDao' => $comentariosLikeDao));
         }
         elseif ($souAmigo AND $status == 'Aceito') {
-            $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios));
+            $this->getSliceView('poesias/index', array('poesias' => $poeta->getPoesias(), 'comentarios' => $comentarios , 'comentariosLikeDao' => $comentariosLikeDao));
         }elseif ($status == 'Pendente') {
             //troco o html caso quem convidou foi o usuario da sessao que está visitando o perfil
             if(!$souUsuarioConvidador){

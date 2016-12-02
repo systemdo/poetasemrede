@@ -279,7 +279,7 @@ class UsuariosController extends Controller {
         $resultado['imagem']['mensagem'] = $mensagem;
         
         $this->setSessionBag($resultado);
-        SD::redirect('usuarios/imagemPerfil');
+        SD::redirect('usuarios/imagemPortada');
         
     }
 

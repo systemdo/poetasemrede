@@ -10,6 +10,7 @@ if (empty($poesias)) { ?>
     <?php
 } else {
     foreach ($poesias as $poesia) {
+        if( $poesia->getId() !=8 ){
     ?>        
         <div class="panel panel-default panel-poesia" id="panel-poesia">
             <div class="panel-heading panel-heading-poesia"><!--header poesia-->
@@ -43,8 +44,9 @@ if (empty($poesias)) { ?>
                     <span class="glyphicon glyphicon-edit icon-header-poesia btn-update-poesia" id="update"  data-id="<?php echo $poesia->getId() ?>" aria-hidden="true" title="atualizar poema?"></span>
                     <!--<span class="glyphicon glyphicon-trash icon-header-poesia btn-delete-poesia" id="delete" data-id="<?php //echo $poesia->getId() ?>" aria-hidden="true" title="Excluir poema?"></span>-->
                 <?php } ?>
-                    <span class="quantidade-comentario" id="quantidade-comentario-<?php echo $poesia->getId() ?>"><?php echo $comentarios->obterQuantidadeComentariosPorPoesia($poesia->getId())->quantidade?> <a href="#" idPoesia="<?php echo $poesia->getId() ?>"></a></span>
+                     <span class="quantidade-comentario" id="quantidade-comentario-<?php echo $poesia->getId() ?>"><?php echo $comentarios->obterQuantidadeComentariosPorPoesia($poesia->getId())->quantidade?> <a href="#" idPoesia="<?php echo $poesia->getId() ?>" id="link-ver-todos-comentarios-<?php echo $poesia->getId() ?>" class="ver-todos-comentarios" >Ver todos</a></span>
                      <span class="quantidade-likes" id="quantidade-likes-<?php echo $poesia->getId() ?>"><?php echo $poesia->getCountLike() ?> pessoas gostaram</span>
+                     
             </div>
             <div class="panel-footer"><!-- footer poesia, botões de comentario, editar e deletar poesia-->
                 <div class="col-md-12 grid-comentarios" id="grid-comentarios-<?php echo $poesia->getId() ?>">
@@ -55,7 +57,7 @@ if (empty($poesias)) { ?>
                         $cs = $comentarios->obterComentariosPorPoesia($poesia->getId());
                         if (!empty($cs)) {
                             //retorna um html da vista
-                            echo $this->getSliceViewHtml('comentarios/comentarios', array('comentarios' => $cs));
+                            echo $this->getSliceViewHtml('comentarios/comentarios', array('comentarios' => $cs, 'comentariosLikeDao' => $comentariosLikeDao));
                         }
                         ?>
                       
@@ -76,6 +78,8 @@ if (empty($poesias)) { ?>
         </div><!--panel poesia-->
         <?php
     }
+    
+                        }
 }
 ?>
 
