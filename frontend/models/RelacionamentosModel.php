@@ -10,6 +10,9 @@ Class RelacionamentosModel extends Model {
     private $status;
     private $dataCriacao;
     private $IdSolicitante;
+    private $convidado;
+    private $convidador;
+    private $amigos;
 
     function __construct() {
         
@@ -74,6 +77,7 @@ Class RelacionamentosModel extends Model {
 
         return $this->IdSolicitante;
     }
+
     public function setIdConvidador($idConvidador) {
 
         $this->idConvidador = $idConvidador;
@@ -83,6 +87,7 @@ Class RelacionamentosModel extends Model {
 
         return $this->idConvidador;
     }
+
     public function setIdConvidado($idConvidado) {
 
         $this->idConvidado = $idConvidado;
@@ -91,6 +96,30 @@ Class RelacionamentosModel extends Model {
     public function getIdConvidado() {
 
         return $this->$idConvidado;
+    }
+
+    function getConvidado() {
+        return $this->convidado;
+    }
+
+    function getConvidador() {
+        return $this->convidador;
+    }
+
+    function setConvidado(UsuariosModel $convidado) {
+        $this->convidado = $convidado;
+    }
+
+    function setConvidador(UsuariosModel $convidador) {
+        $this->convidador = $convidador;
+    }
+
+    function setAmigos($amigos) {
+        $this->amigos = $amigos;
+    }
+
+    function getAmigos() {
+        return $this->amigos;
     }
 
 }

@@ -269,7 +269,7 @@ class UsuariosController extends Controller {
         $upload->setSizeImage($files['size']);
         $upload->setTmpImage($files['tmp_name']);
         
-        $resposta = $upload->saveImage();
+        $resposta = $upload->savePortadaImage();
         if($resposta){
             $mensagem = "Imagem Inserida";
         }else{

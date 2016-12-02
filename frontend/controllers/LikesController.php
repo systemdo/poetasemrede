@@ -39,7 +39,8 @@ class LikesController extends Controller {
                 $resposta = false;
                 $mensagem = 'not';
             }
-            $this->getJson(array('resposta' => $resposta, 'mensagem' => utf8_decode($mensagem)));
+            $idlikepoesia = $likesDAO->obterUltimoLikePoesiaPorUsuario($_POST['idPoesia'],$usuario->getId());
+            $this->getJson(array('resposta' => $resposta,'idlikepoesia'=>$idlikepoesia->idlikepoesia , 'mensagem' => utf8_decode($mensagem)));
         } else {
             $this->getJson(array('resposta' => false, 'mensagem' => utf8_decode("Sem id")));
         }

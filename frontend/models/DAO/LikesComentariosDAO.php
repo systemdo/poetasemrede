@@ -8,8 +8,14 @@ Class LikesComentariosDAO extends Model {
     }
 
     function obterQuantidadeLikesPorComentarios($idComentario) {
-        $query = "SELECT count(*) FROM LIKES_COMENTARIOS where idComentario=$idComentario";
-        return $this->consultAll($query);
+        $query = "SELECT count(*) as qtd FROM LIKES_COMENTARIOS where idComentario=$idComentario";$resultado = $this->consult($query);
+        $qtd = 0 ;
+        $resultado = $this->consultOne($query);
+        if($resultado){
+            $qtd = $resultado->qtd;
+        }
+        
+        return $qtd;
     }
 
     function obterLikeComentariosPorUsuario($idComentario, $idUsuario) {

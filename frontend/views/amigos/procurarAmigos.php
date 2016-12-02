@@ -1,33 +1,34 @@
 <?php
 //var_dump($relacionamentos);
+$usuario = Login::getUserSession();
 if (!empty($relacionamentos)) {
-    ?>
-    <div class="col-md-12 col-sm-12 grid-relacionamento">
-    <?php
-    foreach ($relacionamentos as $key => $relacionamento) {
+    die("he");
+    foreach ($relacionamentos as $key => $amigo) {
         ?>            
         <div class="col-md-3 col-sm-6">
             <div class="thumbnail">
-                <img class="img-circle img-responsive" src="http://placehold.it/40x40" alt="">
+                <img class="img-circle img-responsive" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" alt="">
                 <div class="caption">
-                    <h3><?php echo $relacionamento->nome ?></h3>
-                    <p><?php echo $relacionamento->pseudonimo ?></p>
-                    <p>
-                        <a href="perfil/verPerfilAmigo/<?php echo $relacionamento->idUsuario ?>" class="btn btn-primary">Ver Perfil</a> 
+                    <h3><?php echo $amigo->getNome() ?></h3>
+                    <p><?php echo $amigo->getPseudonimo() ?></p>
+                    <p align="center">
+                        <!--<a class="btn btn-primary" href="<?php //echo SD::getAppUrl() . '/profile/verProfile/' . $relacionamento->getNome() . '/' . $relacionamento->getId()  ?>">Perfil</a>-->
+                        <a class="btn btn-primary" href="<?php echo SD::getAppUrl() . '/profile/verProfile/' . $amigo->getId() ?>">Perfil</a>
+
+                        <button class="btn btn-primary btn-convidar" idConvidado="<?php echo $relacionamento->getId() ?>">Convite</button>
+
                     </p>
                 </div>
             </div>
         </div>
-    </div>    
-        <?php
+
+<?php
     }
-    
 } else {
     ?>
-    <header class="jumbotron hero-spacer">
-        <h1>Procure seu poeta favorito!</h1>
-    </header>
 
-    <?php
+    <p class="sem-amigos">Procure seu Poeta Faforito!</p>
+
+<?php
 }
 ?>

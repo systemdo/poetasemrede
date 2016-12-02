@@ -1,7 +1,7 @@
 <div class="col-md-12 fotos-perfil">
-    <img width="100%" class="img-portada" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
+    <img width="600px" height="400px" class="img-portada" src="<?php echo UserSystem::getPathPortadaImageUser() ?>" >
     <div class="img-thumb">
-        <img style="" class="img img-circle" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" >
+        <img style="" class="img img-circle" src="<?php echo UserSystem::getPathThumbImageUser() ?>" >
     </div>
 </div>
 <style type="text/css">

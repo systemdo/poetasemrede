@@ -9,6 +9,10 @@ Class PoesiasModel extends Model {
     private $dataCriacao;
     private $dataAtualizacao;
     private $status;
+    
+    private $like;
+    
+    private $countLike;
 
     function __construct() {
         
@@ -83,6 +87,27 @@ Class PoesiasModel extends Model {
 
         return $this->status;
     }
+    function getLike() {
+        return $this->like;
+    }
+
+    function getCountLike() {
+        return $this->countLike;
+    }
+
+    function setLike($like) {
+        if(!empty($like)){
+            $this->like = $like->id;
+        }else{
+            $this->like = false;
+        }
+        
+    }
+
+    function setCountLike($countLike) {
+        $this->countLike = $countLike;
+    }
+
 
 }
 

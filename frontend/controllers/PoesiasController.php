@@ -15,9 +15,15 @@ class PoesiasController extends Controller {
     }
 
     function index() {
-        $this->loadModels('PoesiasDAO', 'DAO');
+        $this->loadModels('LikesComentariosDAO', 'DAO');
+        $this->loadModels('LikesPoesiasDAO', 'DAO');
         $this->loadModels("PoesiasModel");
+        $this->loadModels('PoesiasDAO', 'DAO');
+     
+        
         $this->loadModels('ComentariosDAO', 'DAO');
+        
+        $like = new LikesPoesiasDAO();
         $poesia = new PoesiasModel();
         $poesiaDAO = new PoesiasDAO();
             

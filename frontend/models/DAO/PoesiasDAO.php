@@ -8,9 +8,11 @@ Class PoesiasDAO extends Model {
     }
 
     function obterPoesiasPorUsuario($idUsuario) {
+        SD::loadModels('LikesPoesiasDAO', 'DAO');
+        
         $collection = array();
         $query = "SELECT p.id as idPoesia, "
-                . "p.idUsuario,titulo , "
+                . " p.idUsuario,titulo, "
                 . "corpo, "
                 . "dataCriacao, "
                 . "lp.idPoesia as idPoesiaLikePoesia, "
@@ -22,15 +24,19 @@ Class PoesiasDAO extends Model {
                  ."  Order by dataCriacao DESC";
                  
         //die($query);
-        $poesias = $this->consultAll($query);
-        if (!empty($poesias)) {
-            foreach ($poesias as $poesia) {
+        $resultado = $this->consultAll($query);
+        
+        if (!empty($resultado)) {
+            $like = new LikesPoesiasDAO();
+            foreach ($resultado as $poesia) {
                 $poesias = new PoesiasModel();
                 $poesias->setId($poesia->idPoesia);
                 $poesias->setTitulo($poesia->titulo);
                 $poesias->setCorpo($poesia->corpo);
                 $poesias->setDataCriacao($poesia->dataCriacao);
                 $poesias->setIdUsuario($idUsuario);
+                $poesias->setLike($like->obterLikePoesiaPorUsuario($poesia->idPoesia,$idUsuario));
+                $poesias->setCountLike($like->obterQuantidadeLikesPorPoesia($poesia->idPoesia));
                 
                 array_push($collection, $poesias);
             }

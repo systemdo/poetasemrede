@@ -16,7 +16,9 @@
             </div>        
             <div class="col-md-12 col-sm-12 grid-amigos" id="grid-relacionamento">
                 <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
-            </div>       
+                 <span style="display:inline-block">
+            </div> 
+           
         </div>
         <div role="tabpanel" class="tab-pane fade " id="procurar">
             <div class="col-md-12 col-sm-12 buscador buscador-novos-amigos">
@@ -26,10 +28,11 @@
             </div>        
             <div class="col-md-12 col-sm-12 grid-amigos grid-novos-amigos" id="grid-novos-amigos">
                 <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
+            <span style="display:inline-block">
             </div>       
         </div>
         <div role="tabpanel" class="tab-pane fade" id="pendentes">
-            <?php $this->getSliceView('amigos/verAmigos', array('relacionamentos' => $relacionamentos)); ?>
+            <?php $this->getSliceView('amigos/verSolicitacaoAmigos', array('relacionamentos' => $pendentes)); ?>
         </div>
     </div>
 </div>

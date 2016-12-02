@@ -129,7 +129,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    var URL = "<?php SD::getAppUrl()?>";
+</script>    
 
 <!-- jQuery -->
 <script src="<?php echo $this->getPathJS() ?>/jquery.js"></script>

@@ -9,6 +9,13 @@ class ProfileController extends Controller {
     }
 
     function index($id = false){
+        
+select * from poesias p 
+Join usuarios u on u.id = p.idUsuario
+Join relacionamentos r 
+on (u.id = r.idConvidador or u.id = r.idConvidado)   
+where p.dataCriacao between '2016-09-20 07:16:06' and now()
+Order by p.dataCriacao DESC;
         $this->loadModels('PoesiasDAO', 'DAO');
         $this->loadModels('ComentariosDAO', 'DAO');
         $this->loadModels('RelacionamentosDAO', 'DAO');
@@ -17,6 +24,7 @@ class ProfileController extends Controller {
         $this->loadModels('UsuariosModel');
         $this->loadModels('PoesiasModel');
         $this->loadModels('StatusModel');
+        $this->loadModels('RelacionamentosModel');
         
         
         $poesiaDAO = new PoesiasDAO();

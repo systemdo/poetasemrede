@@ -1,38 +1,39 @@
 <?php
 //var_dump($relacionamentos);
+$usuario = Login::getUserSession();
 if (!empty($relacionamentos)) {
     ?>
-    <div class="col-md-12 col-sm-12 buscador">
-        <!--<form class="navbar-form navbar-left">-->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button class="btn btn-default">Procurar</button>
-        <!--</form>-->
-    </div>        
-
     <?php
     foreach ($relacionamentos as $key => $relacionamento) {
+        $amigo =  $relacionamento->getAmigos();
         ?>            
-        <div class="col-md-3 col-sm-6 hero-feature">
+        <div class="col-md-3 col-sm-6">
             <div class="thumbnail">
-                <img class="img-circle img-responsive" src="http://placehold.it/40x40" alt="">
+                <img class="img-circle img-responsive" src="<?php echo SD::getAppUrlPublicFiles() ?>/uploads/imgteste.jpg" alt="">
                 <div class="caption">
-                    <h3><?php echo $relacionamento->nome ?></h3>
-                    <p><?php echo $relacionamento->pseudonimo ?></p>
-                    <p>
-                        <a href="perfil/verPerfilAmigo/<?php echo $relacionamento->idUsuario ?>" class="btn btn-primary">Ver Perfil</a> 
+                    <h3><?php echo $amigo->getNome() ?></h3>
+                    <p><?php echo $amigo->getPseudonimo() ?></p>
+                    <p align="center">
+                  
+                        <a class="btn btn-primary" href="<?php echo SD::getAppUrl() . '/profile/verProfile/'.$amigo->getId() ?>">Perfil</a>
+                            <!--se foi ele que me convidou-->
+                            <?php if ($relacionamento->getConvidador()->getIdConvidador() == $usuario->getId()) { ?>
+                                        <button class="btn btn-primary btn-aceitar-convite" idRelacionamento="<?php echo $relacionamento->getId() ?>">Aceitar</button>
+                            <?php } else { ?>
+                                        <button class="btn btn-primary">Enviado</button>
+                            <?php } ?> 
+                   
                     </p>
                 </div>
             </div>
         </div>
+
         <?php
     }
 } else {
     ?>
-    <header class="jumbotron hero-spacer">
-        <h1>Procure seu poeta favorito!</h1>
-    </header>
+
+    <p class="sem-amigos">Querido poeta, nessa vida não existe vida se a vida não é acompanhada por outra vida!</p>
 
     <?php
 }

@@ -81,7 +81,9 @@ class UserImage {
         return $this->getPathUserImage.'/tpm';
     }
     
-
+    function savePortadaImage(){
+       return $this->saveImage($this->getPathUserImage());
+    } 
     function saveImage($destination = false) {
         if (!$destination) {
             $destination = $this->getPathImgTpmUser();
@@ -97,7 +99,7 @@ class UserImage {
                     if (!is_dir($destination)){
                         mkdir($destination);
                     }
-                    
+                    //echo $destination;die();
                     //save in the temporary dir 
                     $result = move_uploaded_file($this->tmpImage, $destination . '/' . $this->getNameImgApp());
                     

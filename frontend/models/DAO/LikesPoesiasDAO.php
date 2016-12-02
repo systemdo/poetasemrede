@@ -8,21 +8,36 @@ Class LikesPoesiasDAO extends Model {
     }
 
     function obterQuantidadeLikesPorPoesia($idPoesia) {
-        $query = "SELECT count(*) FROM LIKES_POESIA where idPoesia=$idPoesia";
-        return $this->consultAll($query);
+        $query = "SELECT count(*) as qtd FROM LIKES_POESIA where idPoesia=$idPoesia";
+        $resultado = $this->consultOne($query);
+        $qtd = 0 ;
+        if($resultado){
+            $qtd = $resultado->qtd;
+        }
+        
+        return $qtd;
     }
 
     function obterLikePoesiaPorUsuario($idPoesia, $idUsuario) {
         $query = "SELECT * FROM LIKES_POESIA where idUsuario=$idUsuario AND idPoesia=$idPoesia";
-        return $this->consultOne($query);
+        $result = $this->consultOne($query);
+        return $result;
+        
+    }
+    
+    function obterUltimoLikePoesiaPorUsuario($idPoesia, $idUsuario) {
+        $query = "SELECT max(id) as idlikepoesia FROM LIKES_POESIA where idUsuario=$idUsuario AND idPoesia=$idPoesia";
+        $result = $this->consultOne($query);
+        return $result;
+        
     }
 
     function inserirLike(LikesPoesiasModel $likes) {
         $db = $this->db;
 
         try {
-            $sql = "INSERT INTO lIKES_POESIA(idUsuario,idPoesia) 
-                 values(:idUsuario,:idPoesia)
+            $sql = "INSERT INTO lIKES_POESIA(idUsuario,idPoesia, dataLike) 
+                 values(:idUsuario,:idPoesia, :dataLike)
                  ";
             /* var_dump($likes);    
               $sql ="INSERT INTO lIKES_POESIA(idUsuario,idPoesia)
@@ -34,6 +49,8 @@ Class LikesPoesiasDAO extends Model {
             $insert->bindValue(":idUsuario", $likes->getIdUsuario(), PDO::PARAM_INT);
 
             $insert->bindValue(":idPoesia", $likes->getIdPoesia(), PDO::PARAM_INT);
+            
+            $insert->bindValue(":dataLike", date('Y-m-d h:i:s'), PDO::PARAM_STR);
 
             $registro = $insert->execute();
 

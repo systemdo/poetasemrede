@@ -49,7 +49,7 @@ $(document).ready(function () {
     $('#txt-procurar-amigos').on('keyup', function () {
         var nome = $('#txt-procurar-amigos').val();
         if(nome != ''){
-            amigos.procurarAmigos('amigos/procurarAmigosHtml/' + nome, 'grid-novos-amigos');
+            amigos.procurarAmigos('amigos/procurarNovosAmigosHtml/' + nome, 'grid-novos-amigos');
         }
     });
     $('#txt-procurar-relacionamentos').on('keyup', function () {

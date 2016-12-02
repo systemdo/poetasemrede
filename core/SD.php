@@ -274,6 +274,26 @@ class SD {
         
         return $image;
     }
+    
+    static function loadModels($models,$pasta=false){
+        
+         if(is_array($models)){
+            foreach($models as $model){
+                if($pasta){
+                    require_once SD::getPathModels().'/'.$pasta.'/'.$model.'.php' ;
+                }else{
+                    require_once SD::getPathModels().'/'.$model.'.php' ;
+                }    
+            }
+        }else{
+                if($pasta){
+                    require_once SD::getPathModels().'/'.$pasta.'/'.$models.'.php' ;
+                }else{
+                    require_once SD::getPathModels().'/'.$models.'.php' ;
+                }    
+        }
+    
+    }
 
 
 }

@@ -8,47 +8,66 @@ Class RelacionamentosDAO extends Model {
     }
 
     function obterAmigosPorUsuarioPorIndex($idUsuario, $nome ,$status = false) {
-        $query = "SELECT u.id as idUsuario, "
-                . " r.id as idRelacionamento, "
-                . " nome, "
-                . " sobrenome, "
-                . " pseudonimo, "
-                . " r.status , idConvidador, idConvidado"
+        
+         $query = "SELECT r.id, r.idConvidador, r.idConvidado "
                 . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
                 . " OR r.idConvidado = u.id "
-                . " WHERE (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario) "
-                . " AND  u.id <> $idUsuario"
+                . " WHERE u.id not in($idUsuario)"
+                . " AND (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario)"
+                . " AND r.status =". StatusModel::STATUS_CONVITE_ACEITO
                 . " AND (nome like '%" . $nome . "%' OR "
-                . " pseudonimo = '%" . $nome . "%' )";
-                if($status){
-                    //$query.= " r.status =  $status";        
+                . " pseudonimo = '%" . $nome . "%' )"
+                . " Order by u.nome ASC ";
+        
+//        $query = "SELECT "
+//                . " r.id"
+//                . " r.status , idConvidador, idConvidado"
+//                . " FROM USUARIOS u "
+//                . " JOIN RELACIONAMENTOS r "
+//                . " on r.idConvidador=u.id "
+//                . " OR r.idConvidado = u.id "
+//                . " WHERE (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario) "
+//                . " AND  u.id <> $idUsuario"
+//                . " AND (nome like '%" . $nome . "%' OR "
+//                . " pseudonimo = '%" . $nome . "%' )";
+//                if($status){
+//                    $query.= " r.status =  $status";        
+//                }
+//                $query.= " Order by nome ASC";
+//      
+        $collection = array();
+        $relacionamentos = $this->consultAll($query);
+        $usuarioDAO = new UsuariosDAO();
+       
+        if (!empty($relacionamentos)) {
+            foreach ($relacionamentos as $relacionamento) {
+                $amigo = new RelacionamentosModel();
+                $amigo->setId($relacionamento->id);
+                $amigo->setIdConvidado($relacionamento->idConvidado);
+                $amigo->setIdConvidador($relacionamento->idConvidador);
+                $amigo->setStatus($relacionamento->idConvidador);
+                if($relacionamento->idConvidador != $idUsuario){
+                   $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidador)); 
+                   $amigo->setConvidador($usuarioDAO->consultarUsuario($relacionamento->idConvidador));
                 }
-                $query.= " Order by nome ASC";
-      
-        die($query);
-          $collection = array();
-        //die($query);
-        $amigos = $this->consultAll($query);
-        if (!empty($amigos)) {
-            foreach ($amigos as $amigo) {
-                $amigos = new UsuariosModel();
-                $amigos->setId($amigo->idRelacionamento);
-                $amigos->setNome($amigo->nome);
-                $amigos->setSobrenome($amigo->sobrenome);
-                $amigos->setPseudonimo($amigo->pseudonimo);
-                array_push($collection, $amigos);
+                if($relacionamento->idConvidado != $idUsuario){
+                    $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidado)); 
+                    $amigo->setConvidado($usuarioDAO->consultarUsuario($relacionamento->idConvidado));
+                }
+                
+                
+                array_push($collection, $amigo);
             }
-        }        
-        return $amigos;
+        } 
+        
+        return $collection;       
     }
     function obterAmigosPorUsuarioPendentes($idUsuario) {
-        $query = "SELECT u.id as idUsuario, "
-                . "r.id as idRelacionamento, "
-                . "nome, "
-                . "sobrenome, "
-                . "pseudonimo, "
+         SD::loadModels('UsuariosDAO', 'DAO');
+        $query = "SELECT "
+                . "r.id "
                 . "r.status ,idConvidador, idConvidado "
                 . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
@@ -60,7 +79,33 @@ Class RelacionamentosDAO extends Model {
                 . " Order by nome ASC";
       
         //die($query);
-        return $this->consultAll($query);
+        $collection = array();
+        $relacionamentos = $this->consultAll($query);
+        $usuarioDAO = new UsuariosDAO();
+         if (!empty($relacionamentos)) {
+            foreach ($relacionamentos as $relacionamento) {
+                $amigo = new RelacionamentosModel();
+                $amigo->setId($relacionamento->id);
+                $amigo->setIdConvidado($relacionamento->idConvidado);
+                $amigo->setIdConvidador($relacionamento->idConvidador);
+                $amigo->setStatus($relacionamento->idConvidador);
+                if($relacionamento->idConvidador != $idUsuario){
+                   $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidador)); 
+                   $amigo->setConvidador($usuarioDAO->consultarUsuario($relacionamento->idConvidador));
+                }
+                if($relacionamento->idConvidado != $idUsuario){
+                    $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidado)); 
+                    $amigo->setConvidado($usuarioDAO->consultarUsuario($relacionamento->idConvidado));
+                }
+                
+                
+                array_push($collection, $amigo);
+            }
+        } 
+        
+        return $collection;       
+       
+       
     }
 
     function obterAmigosPorUsuarioPorLimite($idUsuario, $limit = false) {
@@ -87,28 +132,40 @@ Class RelacionamentosDAO extends Model {
 
     //saber quais os amigos de um usuário
     function obterAmigosPorUsuario($idUsuario) {
-        $query = "SELECT * FROM USUARIOS u "
+        $query = "SELECT r.id, r.idConvidador, r.idConvidado "
+                . " FROM USUARIOS u "
                 . " JOIN RELACIONAMENTOS r "
                 . " on r.idConvidador=u.id "
                 . " OR r.idConvidado = u.id "
                 . " WHERE u.id not in($idUsuario)"
                 . " AND (r.idConvidador = $idUsuario or r.idConvidado= $idUsuario)"
                 . " AND r.status =". StatusModel::STATUS_CONVITE_ACEITO
-                . " Order by dataCriacao DESC ";
+                . " Order by nome ASC ";
+        
         $collection = array();
-        //die($query);
-        $amigos = $this->consultAll($query);
-        if (!empty($amigos)) {
-            foreach ($amigos as $amigo) {
-                $amigos = new UsuariosModel();
-                $amigos->setId($amigo->id);
-                $amigos->setNome($amigo->nome);
-                $amigos->setSobrenome($amigo->sobrenome);
-                $amigos->setPseudonimo($amigo->pseudonimo);
-                array_push($collection, $amigos);
+        $relacionamentos = $this->consultAll($query);
+        $usuarioDAO = new UsuariosDAO();
+       
+        if (!empty($relacionamentos)) {
+            foreach ($relacionamentos as $relacionamento) {
+                $amigo = new RelacionamentosModel();
+                $amigo->setId($relacionamento->id);
+                $amigo->setIdConvidado($relacionamento->idConvidado);
+                $amigo->setIdConvidador($relacionamento->idConvidador);
+                $amigo->setStatus($relacionamento->idConvidador);
+                if($relacionamento->idConvidador != $idUsuario){
+                   $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidador)); 
+                   $amigo->setConvidador($usuarioDAO->consultarUsuario($relacionamento->idConvidador));
+                }
+                if($relacionamento->idConvidado != $idUsuario){
+                    $amigo->setAmigos($usuarioDAO->consultarUsuario($relacionamento->idConvidado)); 
+                    $amigo->setConvidado($usuarioDAO->consultarUsuario($relacionamento->idConvidado));
+                }
+                
+                
+                array_push($collection, $amigo);
             }
-        }
-
+        }        
         return $collection;
     }
 

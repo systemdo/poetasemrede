@@ -23,6 +23,40 @@ Class UsuariosDAO extends Model{
       return $usuario;
   }
   
+  function procurarUsuario($idUsuario, $nome){
+      $query = "SELECT * "
+              . " FROM USUARIOS u"
+               . " JOIN RELACIONAMENTOS r "
+                . " on r.idConvidador=u.id "
+                . " OR r.idConvidado = u.id "
+              . " WHERE u.id <> $idUsuario "
+              . " AND r.idConvidador <> $idUsuario "
+              . " AND r.idConvidado <> $idUsuario "
+              . " AND (nome like '%" . $nome . "%' OR "
+              . " pseudonimo = '%" . $nome . "%' )"
+              . " Order by u.nome ASC LIMIT 0 ,10";
+        //die($query);
+      $collection = array();
+      $results = $this->consultAll($query);
+      
+      $usuario = new UsuariosModel();
+      if($results){
+        foreach ($results as $result){  
+            $usuario->setId($result->id);
+            $usuario->setNome($result->nome);
+            $usuario->setSobrenome($result->sobrenome);
+            $usuario->setPseudonimo($result->pseudonimo);
+            $usuario->getEmail($result->id);
+            $usuario->setImagem($result->imagem);
+            $usuario->setNascimento($result->nascimento);
+            array_push($collection, $amigo);
+        }
+      }
+      return $collection;
+  }
+  
+  
+  
   function verificarSeUsuarioExistePorEmail($email){
       $query = "SELECT * FROM USUARIOS WHERE=$email";
       return $this->consult($query);
